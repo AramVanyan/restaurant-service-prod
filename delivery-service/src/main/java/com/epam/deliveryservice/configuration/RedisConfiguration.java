@@ -50,6 +50,7 @@ public class RedisConfiguration {
     DeliveryHistoryPublisher redisHistoryPublisher(@Autowired RedisTemplate<?, ?> redisTemplate) {
         return new DeliveryHistoryPublisher(redisTemplate, publishHistoryTopic());
     }
+
     @Bean
     ChannelTopic publishHistoryTopic() {
         return new ChannelTopic("history");

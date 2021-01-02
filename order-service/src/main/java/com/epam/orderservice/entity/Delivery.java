@@ -24,5 +24,5 @@ public class Delivery {
 
     @Column(name = "completed", columnDefinition="DATETIME",nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date completionTime = new Date(scheduledDeliveryTime.getTime() + 3600*1000*2);
+    private Date completionTime;
 }

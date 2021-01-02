@@ -1,5 +1,7 @@
 package com.epam.paymentservice.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,11 +12,13 @@ import java.util.List;
 @Entity
 @Table(name = "credit_card")
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
+@Builder
 public class CreditCard {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "card_number")
+    private String cardNumber;
 
     @Column(nullable = false)
     private Long balance;

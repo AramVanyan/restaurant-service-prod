@@ -6,8 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "payment")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

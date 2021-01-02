@@ -24,7 +24,7 @@ public class OrderSubscriber implements MessageListener {
     private PaymentService paymentService;
     private OrderService orderService;
     private ObjectMapper objectMapper;
-    private final OrderMapper orderMapper = Mappers.getMapper(OrderMapper.class);
+    private OrderMapper orderMapper;
 
     @Autowired
     public OrderSubscriber(OrderService orderService,ObjectMapper objectMapper,PaymentService paymentService) {

@@ -7,6 +7,7 @@ import com.epam.deliveryservice.publisher.DeliveryPublisher;
 import com.epam.deliveryservice.repository.DeliveryRepository;
 import com.epam.deliveryservice.service.DeliveryService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service

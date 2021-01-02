@@ -24,13 +24,14 @@ import org.springframework.stereotype.Service;
 public class PaymentSubscriber implements MessageListener {
     private PaymentService paymentService;
     private ObjectMapper objectMapper;
-    private final PaymentMapper paymentMapper = Mappers.getMapper(PaymentMapper.class);
+    private PaymentMapper paymentMapper;
 
 
     @Autowired
-    public PaymentSubscriber(PaymentService paymentService,ObjectMapper objectMapper) {
+    public PaymentSubscriber(PaymentService paymentService,ObjectMapper objectMapper, PaymentMapper paymentMapper) {
         this.objectMapper=objectMapper;
         this.paymentService = paymentService;
+        this.paymentMapper = paymentMapper;
     }
 
     @SneakyThrows

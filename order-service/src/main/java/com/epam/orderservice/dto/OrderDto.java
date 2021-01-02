@@ -2,9 +2,7 @@ package com.epam.orderservice.dto;
 
 
 import com.sun.istack.NotNull;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
@@ -12,6 +10,8 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class OrderDto {
 
     @NotNull

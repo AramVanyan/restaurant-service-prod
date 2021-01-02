@@ -1,21 +1,17 @@
 package com.epam.orderservice.publisher;
 
 import com.epam.orderservice.dto.DeliveryDto;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
-import org.springframework.stereotype.Service;
+import java.util.logging.Logger;
 
-@Service
-@Slf4j
 public class DeliveryPublisher {
+    private final Logger logger = Logger.getLogger(this.getClass().getName());
     private final RedisTemplate<?, ?> redisTemplate;
     private final ChannelTopic topic;
 
 
-    @Autowired
     public DeliveryPublisher(RedisTemplate<?, ?> redisTemplate, ChannelTopic topic) {
         this.redisTemplate = redisTemplate;
         this.redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(DeliveryDto.class));
@@ -23,7 +19,7 @@ public class DeliveryPublisher {
     }
 
     public void publish(DeliveryDto deliveryDto) {
-        log.info("Sending " + deliveryDto);
+        logger.info("Sending " + deliveryDto);
         redisTemplate.convertAndSend(topic.getTopic(), deliveryDto);
     }
 }

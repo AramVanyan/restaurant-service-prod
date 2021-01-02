@@ -32,6 +32,7 @@ public class RedisConfiguration {
 
     @Bean
     MessageListenerAdapter messageListener() { return new MessageListenerAdapter(new OrderSubscriber()); }
+
     @Bean
     MessageListenerAdapter messageListenerSaga() {
         return new MessageListenerAdapter(new SagaEventSubscriber());
@@ -50,9 +51,6 @@ public class RedisConfiguration {
         return new ChannelTopic("paymentChannel");
     }
 
-
-
-
     @Bean
     KitchenPublisher kitchenPublisher(@Autowired RedisTemplate<?, ?> redisTemplate) {
         return new KitchenPublisher(redisTemplate, kitchenTopic());
@@ -63,9 +61,19 @@ public class RedisConfiguration {
     }
 
     @Bean
+    DeliveryPublisher deliveryPublisher(@Autowired RedisTemplate<?, ?> redisTemplate) {
+        return new DeliveryPublisher(redisTemplate, deliveryTopic());
+    }
+    @Bean
+    ChannelTopic deliveryTopic() {
+        return new ChannelTopic("deliveryChannel");
+    }
+
+    @Bean
     OrderHistoryPublisher redisHistoryPublisher(@Autowired RedisTemplate<?, ?> redisTemplate) {
         return new OrderHistoryPublisher(redisTemplate, publishHistoryTopic());
     }
+
     @Bean("history")
     ChannelTopic publishHistoryTopic() {
         return new ChannelTopic("history");

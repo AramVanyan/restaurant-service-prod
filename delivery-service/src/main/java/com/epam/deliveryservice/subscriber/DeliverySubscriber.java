@@ -11,7 +11,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
@@ -27,13 +26,14 @@ import java.util.Date;
 public class DeliverySubscriber implements MessageListener {
     private DeliveryService deliveryService;
     private ObjectMapper objectMapper;
-    private final DeliveryMapper deliveryMapper = Mappers.getMapper(DeliveryMapper.class);
+    private DeliveryMapper deliveryMapper;
 
 
     @Autowired
-    public DeliverySubscriber(DeliveryService deliveryService,ObjectMapper objectMapper) {
+    public DeliverySubscriber(DeliveryService deliveryService,ObjectMapper objectMapper, DeliveryMapper deliveryMapper) {
         this.objectMapper=objectMapper;
         this.deliveryService = deliveryService;
+        this.deliveryMapper = deliveryMapper;
     }
 
     @SneakyThrows

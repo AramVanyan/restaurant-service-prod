@@ -1,5 +1,7 @@
 package com.epam.deliveryservice.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +12,8 @@ import java.util.Date;
 @Table(name = "delivery")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Delivery {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,5 +28,5 @@ public class Delivery {
 
     @Column(name = "completed", columnDefinition="DATETIME",nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date completionTime = new Date(scheduledDeliveryTime.getTime() + 3600*1000*2);
+    private Date completionTime;
 }

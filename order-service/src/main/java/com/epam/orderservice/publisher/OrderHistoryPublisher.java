@@ -9,7 +9,6 @@ import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.stereotype.Service;
 
-@Service
 @Slf4j
 public class OrderHistoryPublisher {
         private final RedisTemplate<?, ?> redisTemplate;
