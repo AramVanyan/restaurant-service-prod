@@ -21,17 +21,15 @@ import java.util.logging.Logger;
 @Slf4j
 @NoArgsConstructor
 public class OrderSubscriber implements MessageListener {
-
-    private Logger logger = Logger.getLogger(this.getClass().getName());
+    private final Logger logger = Logger.getLogger(this.getClass().getName());
     private PaymentService paymentService;
     private OrderService orderService;
-    private ObjectMapper objectMapper;
     private OrderMapper orderMapper;
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
-    public OrderSubscriber(OrderService orderService,ObjectMapper objectMapper,PaymentService paymentService, OrderMapper orderMapper) {
+    public OrderSubscriber(OrderService orderService, PaymentService paymentService, OrderMapper orderMapper) {
         this.orderService = orderService;
-        this.objectMapper = objectMapper;
         this.paymentService = paymentService;
         this.orderMapper = orderMapper;
     }
@@ -48,3 +46,5 @@ public class OrderSubscriber implements MessageListener {
         orderService.publishHistoryEvent(order);
     }
 }
+
+

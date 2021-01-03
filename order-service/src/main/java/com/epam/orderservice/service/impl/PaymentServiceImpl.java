@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PaymentServiceImpl implements PaymentService {
     @Override
-    public PaymentDto composePayment(Order order,Boolean toBeCompensated) {
+    public PaymentDto composePayment(Order order, Boolean toBeCompensated) {
         return PaymentDto.builder()
                 .sum(order.getSum())
                 .orderId(order.getId())
