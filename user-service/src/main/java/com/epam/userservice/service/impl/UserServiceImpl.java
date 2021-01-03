@@ -4,6 +4,7 @@ import com.epam.userservice.dto.OrderDto;
 import com.epam.userservice.publisher.OrderPublisher;
 import com.epam.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     private OrderPublisher orderPublisher;
 
+    @Autowired
     public UserServiceImpl(OrderPublisher orderPublisher) {
         this.orderPublisher = orderPublisher;
     }

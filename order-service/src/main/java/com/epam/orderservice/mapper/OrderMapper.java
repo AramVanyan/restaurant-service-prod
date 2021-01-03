@@ -2,7 +2,9 @@ package com.epam.orderservice.mapper;
 
 import com.epam.orderservice.dto.OrderDto;
 import com.epam.orderservice.entity.Order;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OrderMapper {
     public Order toEntity(OrderDto orderDto) {
         return Order.builder()
