@@ -19,7 +19,6 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
 @Service
 @Slf4j
 @NoArgsConstructor
@@ -41,7 +40,7 @@ public class DeliverySubscriber implements MessageListener {
     public void onMessage(Message message, byte[] bytes) {
         Event event;
         DeliveryDto deliveryDto = objectMapper.readValue(message.getBody(), DeliveryDto.class);
-        Delivery delivery=deliveryMapper.toEntity(deliveryDto);
+        Delivery delivery = deliveryMapper.toEntity(deliveryDto);
 
         String sDate1 = "31/12/2009";
         Date date = new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);

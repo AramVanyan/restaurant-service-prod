@@ -1,29 +1,20 @@
 package com.epam.userservice.controller;
 
-
+import com.epam.userservice.dto.OrderDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/")
 public class UserController {
+    private Logger logger = Logger.getLogger(this.getClass().getName());
 
-    //Api Gateway
-    @GetMapping("homepage")
-    public ResponseEntity<String> getHomepage(Principal principal) {
-        return ResponseEntity.ok("Hi " + principal.getName());
-    }
-
-    @PostMapping("makeOrder")
-    public ResponseEntity<Object> makeOrder(@RequestBody Object orderRequest) {
-
-        //publish to order service
+    @PostMapping("make-order")
+    public ResponseEntity<Object> makeOrder(@RequestBody OrderDto orderDto) {
+        logger.info("making order");
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
-
 }

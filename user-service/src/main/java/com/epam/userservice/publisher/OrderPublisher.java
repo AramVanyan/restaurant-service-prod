@@ -3,7 +3,6 @@ package com.epam.userservice.publisher;
 import lombok.extern.slf4j.Slf4j;
 import com.epam.userservice.dto.OrderDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;

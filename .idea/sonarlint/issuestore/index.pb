@@ -349,3 +349,11 @@ Vuser-service/src/main/java/com/epam/userservice/security/WebSecurityConfigurati
 Rpayment-service/src/main/java/com/epam/paymentservice/mapper/CreditCardMapper.java,2\d\2d486547e2855d72fab961606b18c072647a5698
 |
 Lpayment-service/src/main/java/com/epam/paymentservice/dto/CreditCardDto.java,7\b\7b7fafdb1c302c10baa17cecb1c3b1f16736f811
+i
+9history-service/src/main/resources/application.properties,9\8\987b3c25034afdc87366b41d0f830dca6cea49b2
+i
+9kitchen-service/src/main/resources/application.properties,8\f\8ff0b8a33fa6d5603940d5863a3440c5fe223585
+g
+7order-service/src/main/resources/application.properties,e\7\e798f939adaa649751f14ddf8e58ee00bc7ac40d
+i
+9payment-service/src/main/resources/application.properties,7\7\77b2122c00fc7e4a21e65283598399507c8f7782

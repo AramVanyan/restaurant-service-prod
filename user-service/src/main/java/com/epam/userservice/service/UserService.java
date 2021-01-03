@@ -1,5 +1,7 @@
 package com.epam.userservice.service;
 
-public interface UserService {
+import com.epam.userservice.dto.OrderDto;
 
+public interface UserService {
+    void publishOrder(OrderDto orderDto);
 }
