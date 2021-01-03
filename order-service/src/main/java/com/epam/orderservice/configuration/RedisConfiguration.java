@@ -19,7 +19,8 @@ import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 @Configuration
 @RequiredArgsConstructor
 public class RedisConfiguration {
-
+    private OrderSubscriber orderSubscriber;
+    private SagaEventSubscriber sagaEventSubscriber;
 
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
@@ -35,7 +36,7 @@ public class RedisConfiguration {
     }
 
     @Bean
-    MessageListenerAdapter messageListener() { return new MessageListenerAdapter(new OrderSubscriber()); }
+    MessageListenerAdapter messageListener() { return new MessageListenerAdapter(orderSubscriber); }
     @Bean
     ChannelTopic orderTopic() {
         return new ChannelTopic("createOrder");
@@ -44,7 +45,7 @@ public class RedisConfiguration {
 
     @Bean
     MessageListenerAdapter messageListenerSaga() {
-        return new MessageListenerAdapter(new SagaEventSubscriber());
+        return new MessageListenerAdapter(sagaEventSubscriber);
     }
     @Bean
     ChannelTopic sagaTopic() {
@@ -86,6 +87,16 @@ public class RedisConfiguration {
     @Bean("history")
     ChannelTopic publishHistoryTopic() {
         return new ChannelTopic("history");
+    }
+
+    @Autowired
+    public void setOrderSubscriber(OrderSubscriber orderSubscriber) {
+        this.orderSubscriber = orderSubscriber;
+    }
+
+    @Autowired
+    public void setSagaEventSubscriber(SagaEventSubscriber sagaEventSubscriber) {
+        this.sagaEventSubscriber = sagaEventSubscriber;
     }
 }
 

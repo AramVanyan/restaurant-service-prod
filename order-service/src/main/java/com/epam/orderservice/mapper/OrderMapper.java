@@ -9,16 +9,16 @@ public class OrderMapper {
     public Order toEntity(OrderDto orderDto) {
         return Order.builder()
                 .userId(orderDto.getUserId())
-                .sum(orderDto.getSum())
-                .deliveryTime(orderDto.getDeliveryTime())
+                .orderSum(orderDto.getOrderSum())
                 .creditCard(orderDto.getCreditCard())
                 .orderDescription(orderDto.getOrderDescription())
+                .deliveryTime(orderDto.getDeliveryTime())
                 .build();
     }
     public OrderDto toDto(Order order) {
         return OrderDto.builder()
                 .userId(order.getUserId())
-                .sum(order.getSum())
+                .orderSum(order.getOrderSum())
                 .deliveryTime(order.getDeliveryTime())
                 .creditCard(order.getCreditCard())
                 .orderDescription(order.getOrderDescription())

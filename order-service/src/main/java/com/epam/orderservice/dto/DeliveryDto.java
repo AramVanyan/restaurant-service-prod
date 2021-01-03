@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Data
@@ -17,7 +18,7 @@ public class DeliveryDto {
     private Long orderId;
 
     @NotNull
-    private Date scheduledDeliveryTime;
+    private Timestamp scheduledDeliveryTime;
 
     @NotNull
     private Boolean toBeCompensated;

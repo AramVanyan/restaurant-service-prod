@@ -321,10 +321,6 @@ Dorder-service/src/main/java/com/epam/orderservice/dto/TicketDto.java,9\9\990fa
 Nkitchen-service/src/main/java/com/epam/kitchenservice/mapper/TicketMapper.java,1\7\174ac72a5fb9d46ae6ca60ccbb56081b15e9f6b0
 ~
 Nuser-service/src/main/java/com/epam/userservice/controller/UserController.java,f\c\fce1105c549218f17cf0a8c1510123b5916442fd
-}
-Muser-service/src/main/java/com/epam/userservice/security/UserDetailsImpl.java,4\2\42fa6c5c7a200720826eb677fd89412bad045e0a
-Ñ
-Tuser-service/src/main/java/com/epam/userservice/security/UserDetailsServiceImpl.java,e\5\e55a5627f452d22bc9331ab6978b346749a37ca7
 ~
 Nuser-service/src/main/java/com/epam/userservice/repository/UserRepository.java,4\5\4592ebfd31674ecd10bc7e1e1002bf29816acbda
 x
@@ -339,8 +335,6 @@ Quser-service/src/main/java/com/epam/userservice/service/impl/UserServiceImpl.ja
 \history-service/src/main/java/com/epam/historyservice/repository/OrderHistoryRepository.java,3\3\33b388d0c20f10dd425cd9fe26e9b1802cebda4e
 è
 _delivery-service/src/main/java/com/epam/deliveryservice/publisher/DeliveryHistoryPublisher.java,9\a\9ac8de4c2af7a0b0708f161e0bfc761783a77697
-Ü
-Vuser-service/src/main/java/com/epam/userservice/security/WebSecurityConfiguration.java,7\4\7472e671f08fe3827f3d034da5b8659cc492e112
 ã
 [payment-service/src/main/java/com/epam/paymentservice/configuration/RedisConfiguration.java,2\8\28d43629a31ea2a2350a4ba4aabed8537da17510
 ç
@@ -351,3 +345,11 @@ Rpayment-service/src/main/java/com/epam/paymentservice/mapper/CreditCardMapper.j
 Lpayment-service/src/main/java/com/epam/paymentservice/dto/CreditCardDto.java,7\b\7b7fafdb1c302c10baa17cecb1c3b1f16736f811
 i
 9kitchen-service/src/main/resources/application.properties,8\f\8ff0b8a33fa6d5603940d5863a3440c5fe223585
+j
+:delivery-service/src/main/resources/application.properties,5\4\5468c9a8738baa86644e307edf5ea154b8e6952c
+i
+9history-service/src/main/resources/application.properties,9\8\987b3c25034afdc87366b41d0f830dca6cea49b2
+i
+9payment-service/src/main/resources/application.properties,7\7\77b2122c00fc7e4a21e65283598399507c8f7782
+f
+6user-service/src/main/resources/application.properties,a\b\abd22621d482309884be935bff1fa3dc406a05f7

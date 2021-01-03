@@ -4,6 +4,7 @@ package com.epam.orderservice.dto;
 import com.sun.istack.NotNull;
 import lombok.*;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 
@@ -18,10 +19,10 @@ public class OrderDto {
     private Long userId;
 
     @NotNull
-    private Long sum;
+    private Long orderSum;
 
     @NotNull
-    private Date deliveryTime;
+    private Timestamp deliveryTime;
 
     @NotNull
     private String creditCard;
