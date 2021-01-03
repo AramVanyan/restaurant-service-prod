@@ -1,7 +1,6 @@
 package com.epam.userservice.entity;
 
 import lombok.*;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 
