@@ -12,12 +12,9 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class OrderHistoryPublisher {
         private final RedisTemplate<?, ?> redisTemplate;
-
         private final ChannelTopic topic;
 
-
-        @Autowired
-        public OrderHistoryPublisher(RedisTemplate<?, ?> redisTemplate, @Qualifier("history") ChannelTopic topic) {
+        public OrderHistoryPublisher(RedisTemplate<?, ?> redisTemplate, @Qualifier("historyTopic") ChannelTopic topic) {
             this.redisTemplate = redisTemplate;
             this.redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(Order.class));
             this.topic = topic;

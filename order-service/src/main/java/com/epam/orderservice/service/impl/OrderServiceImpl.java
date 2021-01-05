@@ -4,10 +4,8 @@ import com.epam.orderservice.dto.DeliveryDto;
 import com.epam.orderservice.dto.PaymentDto;
 import com.epam.orderservice.dto.TicketDto;
 import com.epam.orderservice.entity.Order;
-import com.epam.orderservice.publisher.DeliveryPublisher;
-import com.epam.orderservice.publisher.KitchenPublisher;
-import com.epam.orderservice.publisher.OrderHistoryPublisher;
-import com.epam.orderservice.publisher.PaymentPublisher;
+import com.epam.orderservice.event.Event;
+import com.epam.orderservice.publisher.*;
 import com.epam.orderservice.repository.OrderRepository;
 import com.epam.orderservice.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +19,7 @@ public class OrderServiceImpl implements OrderService {
     private final DeliveryPublisher deliveryPublisher;
     private final OrderRepository orderRepository;
     private final OrderHistoryPublisher historyPublisher;
+    private final EventPublisher eventPublisher;
 
 
     @Override
@@ -61,6 +60,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void publishCompensationEvent(Order order) {
 
+    }
+
+    @Override
+    public void publishEvent(Event event) {
+        eventPublisher.publish(event);
     }
 
     @Override

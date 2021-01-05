@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "delivery")
@@ -18,11 +18,9 @@ public class Delivery {
     @Column(name = "order_id")
     private Long orderId;
 
-    @Column(name = "scheduled_delivery_time",columnDefinition="DATETIME",nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date scheduledDeliveryTime;
+    @Column(name = "scheduled_delivery_time", nullable = false)
+    private Timestamp scheduledDeliveryTime;
 
-    @Column(name = "completed", columnDefinition="DATETIME",nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date completionTime;
+    @Column(name = "completed", nullable = false)
+    private Timestamp completionTime;
 }

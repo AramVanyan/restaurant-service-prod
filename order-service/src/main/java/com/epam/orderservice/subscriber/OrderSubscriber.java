@@ -25,13 +25,13 @@ import java.util.logging.Logger;
 public class OrderSubscriber implements MessageListener {
 
     private final Logger logger = Logger.getLogger(this.getClass().getName());
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
     private PaymentService paymentService;
     private OrderService orderService;
     private OrderMapper orderMapper;
 
     @Autowired
-    public OrderSubscriber(OrderService orderService, ObjectMapper objectMapper, PaymentService paymentService, OrderMapper orderMapper) {
+    public OrderSubscriber(OrderService orderService, PaymentService paymentService, OrderMapper orderMapper) {
         this.orderService = orderService;
         this.paymentService = paymentService;
         this.orderMapper = orderMapper;

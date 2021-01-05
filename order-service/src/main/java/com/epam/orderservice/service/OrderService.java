@@ -4,6 +4,7 @@ import com.epam.orderservice.dto.DeliveryDto;
 import com.epam.orderservice.dto.PaymentDto;
 import com.epam.orderservice.dto.TicketDto;
 import com.epam.orderservice.entity.Order;
+import com.epam.orderservice.event.Event;
 
 public interface OrderService {
     Order save(Order order);
@@ -13,6 +14,6 @@ public interface OrderService {
     PaymentDto publishPayment(PaymentDto paymentDto);
     TicketDto publishTicket(TicketDto ticketDto);
     void publishCompensationEvent(Order order);
-
+    void publishEvent(Event event);
     Order publishHistoryEvent(Order order);
 }

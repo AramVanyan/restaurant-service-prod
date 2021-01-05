@@ -42,15 +42,18 @@ public class DeliverySubscriber implements MessageListener {
         DeliveryDto deliveryDto = objectMapper.readValue(message.getBody(), DeliveryDto.class);
         Delivery delivery = deliveryMapper.toEntity(deliveryDto);
 
-        String sDate1 = "31/12/2009";
-        Date date = new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);
+        String sDate1 = "1/1/2020";
+        Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);
+
+        String sDate2 = "7/1/2020";
+        Date date2 = new SimpleDateFormat("dd/MM/yyyy").parse(sDate2);
 
         event = Event.builder()
                 .eventType(EventType.DELIVERY)
                 .orderId(delivery.getOrderId())
                 .build();
 
-        if (delivery.getScheduledDeliveryTime().after(date)) {
+        if (delivery.getScheduledDeliveryTime().after(date1) && delivery.getScheduledDeliveryTime().before(date2)) {
             deliveryService.save(delivery);
             event.setEventResult(EventResult.SUCCESS);
         } else event.setEventResult(EventResult.FAILED);

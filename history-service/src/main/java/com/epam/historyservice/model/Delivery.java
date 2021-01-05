@@ -1,12 +1,10 @@
 package com.epam.historyservice.model;
 
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.Date;
+import java.sql.Timestamp;
+
 
 @Getter
 @Setter
@@ -16,7 +14,7 @@ public class Delivery {
 
     private Long orderId;
 
-    private Date scheduledDeliveryTime;
+    private Timestamp scheduledDeliveryTime;
 
-    private Date completionTime = new Date(scheduledDeliveryTime.getTime() + 3600*1000*2);
+    private Timestamp completionTime;
 }

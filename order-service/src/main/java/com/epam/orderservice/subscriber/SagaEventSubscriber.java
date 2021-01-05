@@ -1,6 +1,8 @@
 package com.epam.orderservice.subscriber;
 
 
+import com.epam.orderservice.dto.DeliveryDto;
+import com.epam.orderservice.dto.TicketDto;
 import com.epam.orderservice.entity.Order;
 import com.epam.orderservice.event.EventResult;
 import com.epam.orderservice.service.DeliveryService;
@@ -45,22 +47,25 @@ public class SagaEventSubscriber implements MessageListener {
 
         switch (event.getEventType()) {
             case PAYMENT:
-                if (event.getEventResult().equals(EventResult.SUCCESS))
-                    kitchenService.composeTicket(order,false);
-                else orderService.compensateOrder(order.getId());
+                if (event.getEventResult().equals(EventResult.SUCCESS)) {
+                    TicketDto ticketDto = kitchenService.composeTicket(order, false);
+                    kitchenService.publishTicket(ticketDto);
+                } else orderService.compensateOrder(order.getId());
                 break;
             case KITCHEN:
-                if (event.getEventResult().equals(EventResult.SUCCESS))
-                    deliveryService.composeDelivery(order,false);
+                if (event.getEventResult().equals(EventResult.SUCCESS)) {
+                    DeliveryDto deliveryDto = deliveryService.composeDelivery(order, false);
+                    deliveryService.publishDelivery(deliveryDto);
+                }
                 else orderService.publishPayment(paymentService.composePayment(order,true));
                 break;
             case DELIVERY:
-                if (event.getEventResult().equals(EventResult.SUCCESS))
-                    deliveryService.composeDelivery(order,false);
-                else {
-                    orderService.publishTicket(kitchenService.composeTicket(order,true));
-                    orderService.publishPayment(paymentService.composePayment(order,true));
+                if (!event.getEventResult().equals(EventResult.SUCCESS)) {
+                    event.setEventResult(EventResult.FAILED);
+                    orderService.publishTicket(kitchenService.composeTicket(order, true));
+                    orderService.publishPayment(paymentService.composePayment(order, true));
                 }
+                orderService.publishEvent(event);
                 break;
             default:
                 log.info("default");

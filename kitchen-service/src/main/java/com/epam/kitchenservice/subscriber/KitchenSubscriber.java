@@ -16,7 +16,9 @@ import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Date;
 
 @Service
@@ -46,6 +48,7 @@ public class KitchenSubscriber implements MessageListener {
         if (ticketDto.getToBeCompensated()) kitchenService.compensateTicket(ticketDto.getOrderId());
         else {
             Ticket ticket = ticketMapper.toEntity(ticketDto);
+            ticket.setCreationTime(Timestamp.from(Instant.now()));
             kitchenService.save(ticket);
 
             String sDate1 = "31/12/2010";
@@ -53,7 +56,7 @@ public class KitchenSubscriber implements MessageListener {
 
             event = Event.builder()
                     .orderId(ticket.getOrderId())
-                    .eventType(EventType.PAYMENT)
+                    .eventType(EventType.KITCHEN)
                     .build();
 
             if (ticket.getCreationTime().after(date)) {
@@ -62,7 +65,7 @@ public class KitchenSubscriber implements MessageListener {
             } else event.setEventResult(EventResult.FAILED);
 
             kitchenService.publishEvent(event);
-            kitchenService.publishHistoryEvent(ticket);
+//            kitchenService.publishHistoryEvent(ticket);
         }
     }
 }

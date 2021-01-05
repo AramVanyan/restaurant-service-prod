@@ -5,9 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Data
 @NoArgsConstructor
@@ -19,5 +18,5 @@ public class DeliveryDto {
     private Long orderId;
 
     @NotNull
-    private Date scheduledDeliveryTime;
+    private Timestamp scheduledDeliveryTime;
 }

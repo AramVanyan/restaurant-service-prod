@@ -5,4 +5,5 @@ import com.epam.orderservice.entity.Order;
 
 public interface DeliveryService {
     DeliveryDto composeDelivery(Order order,Boolean toBeCompensated);
+    void publishDelivery(DeliveryDto deliveryDto);
 }

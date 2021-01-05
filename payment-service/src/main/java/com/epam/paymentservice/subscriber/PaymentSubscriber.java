@@ -1,18 +1,20 @@
 package com.epam.paymentservice.subscriber;
 
 
+import com.epam.paymentservice.dto.CreditCardDto;
 import com.epam.paymentservice.dto.PaymentDto;
 import com.epam.paymentservice.entity.Payment;
 import com.epam.paymentservice.event.Event;
 import com.epam.paymentservice.event.EventResult;
 import com.epam.paymentservice.event.EventType;
+import com.epam.paymentservice.mapper.CreditCardMapper;
 import com.epam.paymentservice.mapper.PaymentMapper;
+import com.epam.paymentservice.service.CreditCardService;
 import com.epam.paymentservice.service.PaymentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
@@ -22,22 +24,28 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @NoArgsConstructor
 public class PaymentSubscriber implements MessageListener {
+    private final ObjectMapper objectMapper = new ObjectMapper();
+    private CreditCardService creditCardService;
     private PaymentService paymentService;
-    private ObjectMapper objectMapper;
+    private CreditCardMapper creditCardMapper;
     private PaymentMapper paymentMapper;
 
-
     @Autowired
-    public PaymentSubscriber(PaymentService paymentService,ObjectMapper objectMapper, PaymentMapper paymentMapper) {
-        this.objectMapper=objectMapper;
+    public PaymentSubscriber(PaymentService paymentService, PaymentMapper paymentMapper, CreditCardService creditCardService,
+                             CreditCardMapper creditCardMapper) {
+        this.creditCardService = creditCardService;
         this.paymentService = paymentService;
         this.paymentMapper = paymentMapper;
+        this.creditCardMapper = creditCardMapper;
     }
 
     @SneakyThrows
     @Override
     public void onMessage(Message message, byte[] bytes) {
         PaymentDto paymentDto = objectMapper.readValue(message.getBody(), PaymentDto.class);
+        CreditCardDto creditCardDto = creditCardMapper.toDto(creditCardService.findByCardNumber(paymentDto.getCreditCardDto()
+                                                       .getCreditCardNumber()));
+        paymentDto.setCreditCardDto(creditCardDto);
 
         if (paymentDto.getToBeCompensated()) paymentService.compensatePayment(paymentDto.getOrderId());
         else {
@@ -48,11 +56,10 @@ public class PaymentSubscriber implements MessageListener {
                     .eventType(EventType.PAYMENT)
                     .build();
 
-            if (payment.getSum() > 15000) {
+            if (payment.getSum() <= payment.getCreditCard().getBalance()) {
                 event.setEventResult(EventResult.SUCCESS);
                 paymentService.save(payment);
             } else event.setEventResult(EventResult.FAILED);
-
             paymentService.publishEvent(event);
         }
     }

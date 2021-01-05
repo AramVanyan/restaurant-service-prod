@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -19,9 +20,8 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "created", columnDefinition="DATETIME", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date creationTime;
+    @Column(name = "created", nullable = false)
+    private Timestamp creationTime;
 
     @Column(name = "order_id")
     private Long orderId;

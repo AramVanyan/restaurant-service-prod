@@ -1,11 +1,9 @@
 package com.epam.paymentservice.publisher;
 
-
-
-import com.epam.paymentservice.entity.Payment;
 import com.epam.paymentservice.event.Event;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
@@ -20,9 +18,9 @@ public class EventPublisher {
 
 
     @Autowired
-    public EventPublisher(RedisTemplate<?, ?> redisTemplate, ChannelTopic topic) {
+    public EventPublisher(RedisTemplate<?, ?> redisTemplate, @Qualifier("sagaChannel") ChannelTopic topic) {
         this.redisTemplate = redisTemplate;
-        this.redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(Payment.class));
+        this.redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(Event.class));
         this.topic = topic;
     }
 

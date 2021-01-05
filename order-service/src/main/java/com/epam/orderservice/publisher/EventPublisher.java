@@ -1,26 +1,30 @@
 package com.epam.orderservice.publisher;
 
-import com.epam.orderservice.dto.PaymentDto;
+import com.epam.orderservice.event.Event;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.stereotype.Service;
 
+@Service
 @Slf4j
-public class PaymentPublisher {
+public class EventPublisher {
     private final RedisTemplate<?, ?> redisTemplate;
     private final ChannelTopic topic;
 
-    public PaymentPublisher(RedisTemplate<?, ?> redisTemplate, @Qualifier("paymentTopic") ChannelTopic topic) {
+
+    @Autowired
+    public EventPublisher(RedisTemplate<?, ?> redisTemplate, @Qualifier("orderEventTopic") ChannelTopic topic) {
         this.redisTemplate = redisTemplate;
-        this.redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(PaymentDto.class));
+        this.redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(Event.class));
         this.topic = topic;
     }
 
-    public void publish(PaymentDto payment) {
-        log.info("Sending " + payment);
-        redisTemplate.convertAndSend(topic.getTopic(), payment);
+    public void publish(Event event) {
+        log.info("Sending " + event);
+        redisTemplate.convertAndSend(topic.getTopic(), event);
     }
 }

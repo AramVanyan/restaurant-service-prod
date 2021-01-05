@@ -349,7 +349,7 @@ j
 :delivery-service/src/main/resources/application.properties,5\4\5468c9a8738baa86644e307edf5ea154b8e6952c
 i
 9history-service/src/main/resources/application.properties,9\8\987b3c25034afdc87366b41d0f830dca6cea49b2
-i
-9payment-service/src/main/resources/application.properties,7\7\77b2122c00fc7e4a21e65283598399507c8f7782
 f
 6user-service/src/main/resources/application.properties,a\b\abd22621d482309884be935bff1fa3dc406a05f7
+g
+7order-service/src/main/resources/application.properties,e\7\e798f939adaa649751f14ddf8e58ee00bc7ac40d

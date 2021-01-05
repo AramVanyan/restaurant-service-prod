@@ -32,6 +32,7 @@ public class RedisConfiguration {
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
         container.setConnectionFactory(jedisConnectionFactory());
         container.addMessageListener(messageListener(), orderTopic());
+        container.addMessageListener(messageListenerSaga(), sagaTopic());
         return container;
     }
 
@@ -39,7 +40,7 @@ public class RedisConfiguration {
     MessageListenerAdapter messageListener() { return new MessageListenerAdapter(orderSubscriber); }
     @Bean
     ChannelTopic orderTopic() {
-        return new ChannelTopic("createOrder");
+        return new ChannelTopic("orderChannel");
     }
 
 
@@ -62,6 +63,11 @@ public class RedisConfiguration {
     }
 
     @Bean
+    ChannelTopic orderEventTopic() {
+        return new ChannelTopic("orderEventChannel");
+    }
+
+    @Bean
     KitchenPublisher kitchenPublisher(@Autowired RedisTemplate<?, ?> redisTemplate) {
         return new KitchenPublisher(redisTemplate, kitchenTopic());
     }
@@ -81,11 +87,11 @@ public class RedisConfiguration {
 
     @Bean
     OrderHistoryPublisher redisHistoryPublisher(@Autowired RedisTemplate<?, ?> redisTemplate) {
-        return new OrderHistoryPublisher(redisTemplate, publishHistoryTopic());
+        return new OrderHistoryPublisher(redisTemplate, historyTopic());
     }
 
-    @Bean("history")
-    ChannelTopic publishHistoryTopic() {
+    @Bean
+    ChannelTopic historyTopic() {
         return new ChannelTopic("history");
     }
 
