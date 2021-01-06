@@ -1,69 +1,97 @@
 package com.epam.historyservice.service.impl;
 
 import com.epam.historyservice.entity.OrderDetails;
-import com.epam.historyservice.model.Delivery;
-import com.epam.historyservice.model.Order;
-import com.epam.historyservice.model.Payment;
-import com.epam.historyservice.model.Ticket;
 import com.epam.historyservice.repository.OrderHistoryRepository;
 import com.epam.historyservice.service.HistoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.util.LinkedHashMap;
+
 @Service
 @AllArgsConstructor
 public class HistoryServiceImpl  implements HistoryService {
-
-
     private final OrderHistoryRepository repository;
 
     @Override
     public OrderDetails getOrderDetails(Long orderId) {
-      return  repository.findByOrderId(orderId);
+        return  repository.findByOrderId(orderId);
     }
 
     @Override
-    public void addData(Payment payment) {
-        OrderDetails orderDetails=getOrderDetails(payment.getOrderId());
+    public void addPaymentInfo(Object paymentInfo) {
+        LinkedHashMap payment= (LinkedHashMap)paymentInfo;
+        String orderId = payment.get("orderId").toString();
+        String sum = payment.get("sum").toString();
+
+        OrderDetails orderDetails=getOrderDetails(Long.valueOf(orderId));
+
         if(orderDetails==null){
             orderDetails=new OrderDetails();
+            orderDetails.setSum(Long.valueOf(sum));
+            repository.save(orderDetails);
+        } else {
+            orderDetails.setSum(Long.valueOf(sum));
+            repository.updatePayment(Long.valueOf(sum), Long.valueOf(orderId));
         }
-        orderDetails.setSum(payment.getSum());
-        repository.save(orderDetails);
     }
 
     @Override
-    public void addData(Ticket ticket) {
-        OrderDetails orderDetails=getOrderDetails(ticket.getOrderId());
-        if(orderDetails==null){
-            orderDetails=new OrderDetails();
-        }
-        repository.save(orderDetails);
+    public void addTicketInfo(Object ticketInfo) {
+        LinkedHashMap ticket = (LinkedHashMap)ticketInfo;
+        String orderId = ticket.get("orderId").toString();
+        String ticketCreationTime = ticket.get("creationTime").toString();
 
+        OrderDetails orderDetails = getOrderDetails(Long.valueOf(orderId));
+
+        if(orderDetails == null){
+            orderDetails = new OrderDetails();
+            orderDetails.setTicketCreationTime(Timestamp.valueOf(ticketCreationTime));
+            repository.save(orderDetails);
+        } else {
+            orderDetails.setTicketCreationTime(Timestamp.valueOf(ticketCreationTime));
+            repository.updateTicket(Timestamp.valueOf(ticketCreationTime), Long.valueOf(orderId));
+        }
     }
 
     @Override
-    public void addData(Order order) {
-        OrderDetails orderDetails=getOrderDetails(order.getId());
+    public void addDeliveryInfo(Object deliveryInfo) {
+        LinkedHashMap delivery= (LinkedHashMap)deliveryInfo;
+        String orderId = delivery.get("orderId").toString();
+        String scheduledDeliveryTime = delivery.get("scheduledDeliveryTime").toString();
+        String completionTime = delivery.get("completionTime").toString();
+
+        OrderDetails orderDetails=getOrderDetails(Long.valueOf(orderId));
         if(orderDetails==null){
             orderDetails=new OrderDetails();
+            orderDetails.setScheduledDeliveryTime((Timestamp) delivery.get("scheduledDeliveryTime"));
+            orderDetails.setCompletionTime((Timestamp)delivery.get("completionTime"));
+            repository.save(orderDetails);
+        } else {
+            orderDetails.setScheduledDeliveryTime(Timestamp.valueOf(scheduledDeliveryTime));
+            orderDetails.setCompletionTime(Timestamp.valueOf(completionTime));
+            repository.updateDelivery(Timestamp.valueOf(scheduledDeliveryTime), Timestamp.valueOf(completionTime), Long.valueOf(orderId));
         }
-        orderDetails.setOrderDescription(order.getOrderDescription());
-        orderDetails.setUserId(order.getUserId());
-        repository.save(orderDetails);
-
     }
 
     @Override
-    public void addData(Delivery delivery) {
-        OrderDetails orderDetails=getOrderDetails(delivery.getOrderId());
-        if(orderDetails==null){
-            orderDetails=new OrderDetails();
-        }
-        orderDetails.setOrderId(delivery.getOrderId());
-        orderDetails.setScheduledDeliveryTime(delivery.getScheduledDeliveryTime());
-        orderDetails.setCompletionTime(delivery.getCompletionTime());
-        repository.save(orderDetails);
+    public void addOrderInfo(Object orderInfo) {
+        LinkedHashMap order= (LinkedHashMap)orderInfo;
+        String orderId = order.get("id").toString();
+        String orderDescription = order.get("orderDescription").toString();
+        String userId = order.get("userId").toString();
 
+        OrderDetails orderDetails=getOrderDetails(Long.valueOf(orderId));
+        if(orderDetails == null){
+            orderDetails = new OrderDetails();
+            orderDetails.setOrderDescription(orderDescription);
+            orderDetails.setUserId(Long.valueOf(userId));
+            repository.save(orderDetails);
+        } else {
+            orderDetails.setOrderDescription(orderDescription);
+            orderDetails.setUserId(Long.valueOf(userId));
+            repository.updateOrder(orderDescription, Long.valueOf(userId), Long.valueOf(orderId));
+        }
     }
 }

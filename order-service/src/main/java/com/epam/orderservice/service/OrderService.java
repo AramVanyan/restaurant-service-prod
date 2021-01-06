@@ -1,6 +1,7 @@
 package com.epam.orderservice.service;
 
 import com.epam.orderservice.dto.DeliveryDto;
+import com.epam.orderservice.dto.HistoryEvent;
 import com.epam.orderservice.dto.PaymentDto;
 import com.epam.orderservice.dto.TicketDto;
 import com.epam.orderservice.entity.Order;
@@ -15,5 +16,5 @@ public interface OrderService {
     TicketDto publishTicket(TicketDto ticketDto);
     void publishCompensationEvent(Order order);
     void publishEvent(Event event);
-    Order publishHistoryEvent(Order order);
+    void publishHistoryEvent(HistoryEvent historyEvent);
 }

@@ -53,7 +53,7 @@ public class RedisConfiguration {
     }
 
     @Bean
-    EventPublisher redisPublisher(@Autowired RedisTemplate<?, ?> redisTemplate) { return eventPublisher; }
+    EventPublisher redisPublisher() { return eventPublisher; }
     @Bean
     ChannelTopic sagaChannel() {
         return new ChannelTopic("sagaChannel");

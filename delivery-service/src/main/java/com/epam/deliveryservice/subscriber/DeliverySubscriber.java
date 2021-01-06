@@ -1,6 +1,7 @@
 package com.epam.deliveryservice.subscriber;
 
 import com.epam.deliveryservice.dto.DeliveryDto;
+import com.epam.deliveryservice.dto.HistoryEvent;
 import com.epam.deliveryservice.entity.Delivery;
 import com.epam.deliveryservice.event.Event;
 import com.epam.deliveryservice.event.EventResult;
@@ -56,9 +57,12 @@ public class DeliverySubscriber implements MessageListener {
         if (delivery.getScheduledDeliveryTime().after(date1) && delivery.getScheduledDeliveryTime().before(date2)) {
             deliveryService.save(delivery);
             event.setEventResult(EventResult.SUCCESS);
+            HistoryEvent historyEvent = HistoryEvent.builder()
+                    .eventType(EventType.DELIVERY)
+                    .body(delivery)
+                    .build();
+            deliveryService.publishHistoryEvent(historyEvent);
         } else event.setEventResult(EventResult.FAILED);
-
         deliveryService.publishEvent(event);
-        deliveryService.publishHistoryEvent(delivery);
     }
 }

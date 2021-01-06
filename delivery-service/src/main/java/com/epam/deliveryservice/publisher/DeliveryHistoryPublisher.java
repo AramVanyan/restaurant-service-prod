@@ -1,18 +1,16 @@
 package com.epam.deliveryservice.publisher;
 
 
+import com.epam.deliveryservice.dto.HistoryEvent;
 import com.epam.deliveryservice.entity.Delivery;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 
 @Slf4j
 public class DeliveryHistoryPublisher {
-
     private final RedisTemplate<?, ?> redisTemplate;
-
     private final ChannelTopic topic;
 
 
@@ -22,9 +20,9 @@ public class DeliveryHistoryPublisher {
         this.topic = topic;
     }
 
-    public void publish(Delivery delivery) {
-        log.info("Sending " + delivery);
-        redisTemplate.convertAndSend(topic.getTopic(), delivery);
+    public void publish(HistoryEvent historyEvent) {
+        log.info("Sending " + historyEvent);
+        redisTemplate.convertAndSend(topic.getTopic(), historyEvent);
     }
 
 }

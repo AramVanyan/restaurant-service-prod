@@ -1,5 +1,6 @@
 package com.epam.kitchenservice.subscriber;
 
+import com.epam.kitchenservice.dto.HistoryEvent;
 import com.epam.kitchenservice.dto.TicketDto;
 import com.epam.kitchenservice.entity.Ticket;
 import com.epam.kitchenservice.event.Event;
@@ -62,10 +63,13 @@ public class KitchenSubscriber implements MessageListener {
             if (ticket.getCreationTime().after(date)) {
                 event.setEventResult(EventResult.SUCCESS);
                 kitchenService.save(ticket);
+                HistoryEvent historyEvent = HistoryEvent.builder()
+                        .eventType(EventType.KITCHEN)
+                        .body(ticket)
+                        .build();
+                kitchenService.publishHistoryEvent(historyEvent);
             } else event.setEventResult(EventResult.FAILED);
-
             kitchenService.publishEvent(event);
-//            kitchenService.publishHistoryEvent(ticket);
         }
     }
 }

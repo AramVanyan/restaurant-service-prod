@@ -1,5 +1,6 @@
 package com.epam.deliveryservice.service.impl;
 
+import com.epam.deliveryservice.dto.HistoryEvent;
 import com.epam.deliveryservice.entity.Delivery;
 import com.epam.deliveryservice.event.Event;
 import com.epam.deliveryservice.publisher.DeliveryHistoryPublisher;
@@ -22,14 +23,12 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     @Override
-    public Event publishEvent(Event event) {
+    public void publishEvent(Event event) {
         deliveryPublisher.publish(event);
-        return event;
     }
 
     @Override
-    public Delivery publishHistoryEvent(Delivery delivery) {
-        historyPublisher.publish(delivery);
-        return delivery;
+    public void publishHistoryEvent(HistoryEvent historyEvent) {
+        historyPublisher.publish(historyEvent);
     }
 }

@@ -3,7 +3,7 @@ package com.epam.historyservice.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "order_details")
@@ -28,12 +28,13 @@ public class OrderDetails {
     @Column(name="sum")
     private Long sum;
 
-    @Column(name = "scheduled_delivery_time",columnDefinition="DATETIME",nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date scheduledDeliveryTime;
+    @Column(name = "ticket_creation_time")
+    private Timestamp ticketCreationTime;
 
-    @Column(name = "completed", columnDefinition="DATETIME",nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date completionTime;
+    @Column(name = "scheduled_delivery_time")
+    private Timestamp scheduledDeliveryTime;
+
+    @Column(name = "completed")
+    private Timestamp completionTime;
 }
 

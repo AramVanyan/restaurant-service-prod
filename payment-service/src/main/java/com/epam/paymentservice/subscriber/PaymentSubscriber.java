@@ -2,6 +2,7 @@ package com.epam.paymentservice.subscriber;
 
 
 import com.epam.paymentservice.dto.CreditCardDto;
+import com.epam.paymentservice.dto.HistoryEvent;
 import com.epam.paymentservice.dto.PaymentDto;
 import com.epam.paymentservice.entity.Payment;
 import com.epam.paymentservice.event.Event;
@@ -57,8 +58,13 @@ public class PaymentSubscriber implements MessageListener {
                     .build();
 
             if (payment.getSum() <= payment.getCreditCard().getBalance()) {
+                HistoryEvent historyEvent = HistoryEvent.builder()
+                        .eventType(EventType.PAYMENT)
+                        .body(payment)
+                        .build();
                 event.setEventResult(EventResult.SUCCESS);
                 paymentService.save(payment);
+                paymentService.publishHistoryEvent(historyEvent);
             } else event.setEventResult(EventResult.FAILED);
             paymentService.publishEvent(event);
         }

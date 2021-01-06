@@ -1,11 +1,12 @@
 package com.epam.kitchenservice.service;
 
+import com.epam.kitchenservice.dto.HistoryEvent;
 import com.epam.kitchenservice.entity.Ticket;
 import com.epam.kitchenservice.event.Event;
 
 public interface KitchenService {
-    Ticket compensateTicket(Long orderId);
-    Ticket save(Ticket ticket);
-    Event publishEvent(Event event);
-    Ticket publishHistoryEvent(Ticket ticket);
+    void compensateTicket(Long orderId);
+    void save(Ticket ticket);
+    void publishEvent(Event event);
+    void publishHistoryEvent(HistoryEvent historyEvent);
 }

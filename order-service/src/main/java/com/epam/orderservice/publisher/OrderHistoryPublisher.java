@@ -1,13 +1,12 @@
 package com.epam.orderservice.publisher;
 
+import com.epam.orderservice.dto.HistoryEvent;
 import com.epam.orderservice.entity.Order;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
-import org.springframework.stereotype.Service;
 
 @Slf4j
 public class OrderHistoryPublisher {
@@ -20,9 +19,9 @@ public class OrderHistoryPublisher {
             this.topic = topic;
         }
 
-        public void publish(Order order) {
-            log.info("Sending " + order);
-            redisTemplate.convertAndSend(topic.getTopic(), order);
+        public void publish(HistoryEvent historyEvent) {
+            log.info("Sending " + historyEvent);
+            redisTemplate.convertAndSend(topic.getTopic(), historyEvent);
         }
 
 }

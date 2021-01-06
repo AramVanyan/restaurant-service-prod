@@ -1,6 +1,7 @@
 package com.epam.orderservice.service.impl;
 
 import com.epam.orderservice.dto.DeliveryDto;
+import com.epam.orderservice.dto.HistoryEvent;
 import com.epam.orderservice.dto.PaymentDto;
 import com.epam.orderservice.dto.TicketDto;
 import com.epam.orderservice.entity.Order;
@@ -68,8 +69,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order publishHistoryEvent(Order order) {
-        historyPublisher.publish(order);
-        return order;
+    public void publishHistoryEvent(HistoryEvent historyEvent) {
+        historyPublisher.publish(historyEvent);
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 
@@ -24,6 +25,14 @@ public class RedisConfiguration {
     }
 
     @Bean
+    RedisMessageListenerContainer container() {
+        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+        container.setConnectionFactory(jedisConnectionFactory());
+        container.addMessageListener(messageListener(), topic());
+        return container;
+    }
+
+    @Bean
     public RedisTemplate<String, OrderDto> redisTemplate() {
         final RedisTemplate<String, OrderDto> template = new RedisTemplate<>();
         template.setConnectionFactory(jedisConnectionFactory());
@@ -33,11 +42,17 @@ public class RedisConfiguration {
 
     @Bean
     OrderPublisher redisPublisher(@Autowired RedisTemplate<?, ?> redisTemplate) {
-        return new OrderPublisher(redisTemplate, topic());
+        return new OrderPublisher(redisTemplate, createOrderTopic());
     }
+
+    @Bean
+    ChannelTopic createOrderTopic() {
+        return new ChannelTopic("orderChannel");
+    }
+
     @Bean
     ChannelTopic topic() {
-        return new ChannelTopic("orderChannel");
+        return new ChannelTopic("orderEventChannel");
     }
 
     @Bean

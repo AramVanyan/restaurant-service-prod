@@ -1,5 +1,6 @@
 package com.epam.kitchenservice.service.impl;
 
+import com.epam.kitchenservice.dto.HistoryEvent;
 import com.epam.kitchenservice.entity.Ticket;
 import com.epam.kitchenservice.event.Event;
 import com.epam.kitchenservice.publisher.KitchenHistoryPublisher;
@@ -17,24 +18,22 @@ public class KitchenServiceImpl implements KitchenService {
     private final KitchenHistoryPublisher historyPublisher;
 
     @Override
-    public Ticket compensateTicket(Long orderId) {
-        return kitchenRepository.deleteByOrderId(orderId);
+    public void compensateTicket(Long orderId) {
+        kitchenRepository.deleteByOrderId(orderId);
     }
 
     @Override
-    public Ticket save(Ticket ticket) {
-        return kitchenRepository.save(ticket);
+    public void save(Ticket ticket) {
+        kitchenRepository.save(ticket);
     }
 
     @Override
-    public Event publishEvent(Event event) {
+    public void publishEvent(Event event) {
         kitchenPublisher.publish(event);
-        return event;
     }
 
     @Override
-    public Ticket publishHistoryEvent(Ticket ticket) {
-        historyPublisher.publish(ticket);
-        return ticket;
+    public void publishHistoryEvent(HistoryEvent historyEvent) {
+        historyPublisher.publish(historyEvent);
     }
 }

@@ -1,11 +1,10 @@
 package com.epam.orderservice.dto;
 
 
-import com.sun.istack.NotNull;
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
-import java.util.Date;
 
 
 @Getter
@@ -14,7 +13,6 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 public class OrderDto {
-
     @NotNull
     private Long userId;
 
