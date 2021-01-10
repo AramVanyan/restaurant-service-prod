@@ -1,6 +1,5 @@
 package com.epam.orderservice.subscriber;
 
-
 import com.epam.orderservice.dto.DeliveryDto;
 import com.epam.orderservice.dto.HistoryEvent;
 import com.epam.orderservice.dto.TicketDto;
@@ -67,7 +66,8 @@ public class SagaEventSubscriber implements MessageListener {
                     orderService.publishTicket(kitchenService.composeTicket(order, true));
                     orderService.publishPayment(paymentService.composePayment(order, true));
                 }
-                orderService.publishEvent(event);
+                event.setEventType(EventType.ORDER);
+                orderService.publishOrderEvent(event);
                 HistoryEvent historyEvent = HistoryEvent.builder()
                         .eventType(EventType.ORDER)
                         .body(order)

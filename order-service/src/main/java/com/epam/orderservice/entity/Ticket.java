@@ -19,6 +19,9 @@ public class Ticket {
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationTime;
 
+    @Column(name = "ticket_number")
+    private String ticketNumber;
+
     @Column(name = "order_id")
     private Long orderId;
 

@@ -18,8 +18,8 @@ public interface OrderHistoryRepository extends JpaRepository<OrderDetails,Long>
     void updatePayment(@Param(value = "sum") Long sum, @Param(value = "orderId") Long orderId);
 
     @Modifying
-    @Query("update OrderDetails od set od.ticketCreationTime = :ticketCreationTime where od.orderId = :orderId")
-    void updateTicket(@Param(value = "ticketCreationTime") Timestamp ticketCreationTime, @Param(value = "orderId") Long orderId);
+    @Query("update OrderDetails od set od.ticketNumber = :ticketNumber where od.orderId = :orderId")
+    void updateTicket(@Param(value = "ticketNumber") String ticketNumber, @Param(value = "orderId") Long orderId);
 
     @Modifying
     @Query("update OrderDetails od set od.scheduledDeliveryTime = :scheduledDeliveryTime," +

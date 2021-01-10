@@ -17,7 +17,9 @@ import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Date;
 
 @Service
@@ -30,8 +32,8 @@ public class DeliverySubscriber implements MessageListener {
 
 
     @Autowired
-    public DeliverySubscriber(DeliveryService deliveryService,ObjectMapper objectMapper, DeliveryMapper deliveryMapper) {
-        this.objectMapper=objectMapper;
+    public DeliverySubscriber(DeliveryService deliveryService, ObjectMapper objectMapper, DeliveryMapper deliveryMapper) {
+        this.objectMapper = objectMapper;
         this.deliveryService = deliveryService;
         this.deliveryMapper = deliveryMapper;
     }
@@ -42,7 +44,7 @@ public class DeliverySubscriber implements MessageListener {
         Event event;
         DeliveryDto deliveryDto = objectMapper.readValue(message.getBody(), DeliveryDto.class);
         Delivery delivery = deliveryMapper.toEntity(deliveryDto);
-
+        delivery.setCompletionTime(Timestamp.from(Instant.now()));
         String sDate1 = "1/1/2020";
         Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);
 

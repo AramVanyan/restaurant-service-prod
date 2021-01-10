@@ -41,17 +41,16 @@ public class HistoryServiceImpl  implements HistoryService {
     public void addTicketInfo(Object ticketInfo) {
         LinkedHashMap ticket = (LinkedHashMap)ticketInfo;
         String orderId = ticket.get("orderId").toString();
-        String ticketCreationTime = ticket.get("creationTime").toString();
+        String ticketNumber = ticket.get("ticketNumber").toString();
 
         OrderDetails orderDetails = getOrderDetails(Long.valueOf(orderId));
-
         if(orderDetails == null){
             orderDetails = new OrderDetails();
-            orderDetails.setTicketCreationTime(Timestamp.valueOf(ticketCreationTime));
+            orderDetails.setTicketNumber(ticketNumber);
             repository.save(orderDetails);
         } else {
-            orderDetails.setTicketCreationTime(Timestamp.valueOf(ticketCreationTime));
-            repository.updateTicket(Timestamp.valueOf(ticketCreationTime), Long.valueOf(orderId));
+            orderDetails.setTicketNumber(ticketNumber);
+            repository.updateTicket(ticketNumber, Long.valueOf(orderId));
         }
     }
 

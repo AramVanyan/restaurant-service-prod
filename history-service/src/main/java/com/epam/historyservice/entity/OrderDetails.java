@@ -28,8 +28,8 @@ public class OrderDetails {
     @Column(name="sum")
     private Long sum;
 
-    @Column(name = "ticket_creation_time")
-    private Timestamp ticketCreationTime;
+    @Column(name = "ticket_number")
+    private String ticketNumber;
 
     @Column(name = "scheduled_delivery_time")
     private Timestamp scheduledDeliveryTime;

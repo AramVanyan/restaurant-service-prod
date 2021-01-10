@@ -13,7 +13,7 @@ public class KitchenHistoryPublisher {
     private final RedisTemplate<?, ?> redisTemplate;
     private final ChannelTopic topic;
 
-    public KitchenHistoryPublisher(RedisTemplate<?, ?> redisTemplate, @Qualifier("history") ChannelTopic topic) {
+    public KitchenHistoryPublisher(RedisTemplate<?, ?> redisTemplate, ChannelTopic topic) {
         this.redisTemplate = redisTemplate;
         this.redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(Ticket.class));
         this.topic = topic;

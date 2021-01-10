@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class KitchenServiceImpl implements KitchenService {
-    private KitchenPublisher kitchenPublisher;
+    private final KitchenPublisher kitchenPublisher;
 
     @Autowired
     public KitchenServiceImpl(KitchenPublisher kitchenPublisher) {

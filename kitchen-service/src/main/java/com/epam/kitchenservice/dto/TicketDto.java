@@ -17,4 +17,7 @@ public class TicketDto {
 
     @NotNull
     private Boolean toBeCompensated;
+
+    @NotNull
+    private String ticketNumber;
 }

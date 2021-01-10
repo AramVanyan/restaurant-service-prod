@@ -1,5 +1,6 @@
 package com.epam.kitchenservice.configuration;
 
+import com.epam.kitchenservice.dto.HistoryEvent;
 import com.epam.kitchenservice.event.Event;
 import com.epam.kitchenservice.publisher.KitchenHistoryPublisher;
 import com.epam.kitchenservice.publisher.KitchenPublisher;
@@ -42,6 +43,14 @@ public class RedisConfiguration {
     }
 
     @Bean
+    public RedisTemplate<String, HistoryEvent> kitchenHistoryRedisTemplate() {
+        final RedisTemplate<String, HistoryEvent> template = new RedisTemplate<>();
+        template.setConnectionFactory(jedisConnectionFactory());
+        template.setValueSerializer(new Jackson2JsonRedisSerializer<>(HistoryEvent.class));
+        return template;
+    }
+
+    @Bean
     MessageListenerAdapter messageListener() {
         return new MessageListenerAdapter(kitchenSubscriber);
     }
@@ -52,8 +61,8 @@ public class RedisConfiguration {
     }
 
     @Bean
-    KitchenPublisher redisPublisher(@Autowired RedisTemplate<?, ?> redisTemplate) {
-        return new KitchenPublisher(redisTemplate, publishTopic());
+    KitchenPublisher redisPublisher() {
+        return new KitchenPublisher(redisTemplate(), publishTopic());
     }
     @Bean
     ChannelTopic publishTopic() {
@@ -61,8 +70,8 @@ public class RedisConfiguration {
     }
 
     @Bean
-    KitchenHistoryPublisher redisHistoryPublisher(@Autowired RedisTemplate<?, ?> redisTemplate) {
-        return new KitchenHistoryPublisher(redisTemplate, publishHistoryTopic());
+    KitchenHistoryPublisher redisHistoryPublisher() {
+        return new KitchenHistoryPublisher(kitchenHistoryRedisTemplate(), publishHistoryTopic());
     }
     @Bean("history")
     ChannelTopic publishHistoryTopic() {

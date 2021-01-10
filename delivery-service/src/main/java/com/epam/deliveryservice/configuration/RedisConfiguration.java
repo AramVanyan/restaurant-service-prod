@@ -1,5 +1,6 @@
 package com.epam.deliveryservice.configuration;
 
+import com.epam.deliveryservice.dto.HistoryEvent;
 import com.epam.deliveryservice.event.Event;
 import com.epam.deliveryservice.publisher.DeliveryHistoryPublisher;
 import com.epam.deliveryservice.publisher.DeliveryPublisher;
@@ -42,11 +43,18 @@ public class RedisConfiguration {
     }
 
     @Bean
+    public RedisTemplate<String, HistoryEvent> deliveryHistoryRedisTemplate() {
+        final RedisTemplate<String, HistoryEvent> template = new RedisTemplate<>();
+        template.setConnectionFactory(jedisConnectionFactory());
+        template.setValueSerializer(new Jackson2JsonRedisSerializer<>(HistoryEvent.class));
+        return template;
+    }
+
+    @Bean
     MessageListenerAdapter messageListener() {
         return new MessageListenerAdapter(deliverySubscriber);
     }
-
-    @Bean()
+    @Bean
     ChannelTopic topic() {
         return new ChannelTopic("deliveryChannel");
     }
@@ -61,17 +69,13 @@ public class RedisConfiguration {
         return new ChannelTopic("sagaChannel");
     }
     @Bean
-    DeliveryHistoryPublisher redisHistoryPublisher(@Autowired RedisTemplate<?, ?> redisTemplate) {
-        return new DeliveryHistoryPublisher(redisTemplate, publishHistoryTopic());
+    DeliveryHistoryPublisher redisHistoryPublisher() {
+        return new DeliveryHistoryPublisher(deliveryHistoryRedisTemplate(), publishHistoryTopic());
     }
 
     @Bean
     ChannelTopic publishHistoryTopic() {
         return new ChannelTopic("history");
-    }
-
-    public DeliverySubscriber getDeliverySubscriber() {
-        return deliverySubscriber;
     }
 
     @Autowired

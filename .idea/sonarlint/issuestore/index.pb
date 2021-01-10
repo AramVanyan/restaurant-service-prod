@@ -19,8 +19,6 @@ D
 ]delivery-service/src/main/java/com/epam/deliveryservice/configuration/RedisConfiguration.java,c\d\cdbbcd422073f02efaafb9e0c1e7f1875b244a78
 |
 Ldelivery-service/src/main/java/com/epam/deliveryservice/entity/Delivery.java,9\b\9b15c453357148caec1356ec326a276f67eaa191
-y
-Idelivery-service/src/main/java/com/epam/deliveryservice/entity/Order.java,4\9\49596d23627a24a5a439ab062706185a86dfb33c
 x
 Hkitchen-service/src/main/java/com/epam/kitchenservice/entity/Ticket.java,e\5\e5e5a762fd1a54c2d33473402688cb19dfeaa9aa
 ~
@@ -343,18 +341,8 @@ _delivery-service/src/main/java/com/epam/deliveryservice/publisher/DeliveryHisto
 Rpayment-service/src/main/java/com/epam/paymentservice/mapper/CreditCardMapper.java,2\d\2d486547e2855d72fab961606b18c072647a5698
 |
 Lpayment-service/src/main/java/com/epam/paymentservice/dto/CreditCardDto.java,7\b\7b7fafdb1c302c10baa17cecb1c3b1f16736f811
-i
-9kitchen-service/src/main/resources/application.properties,8\f\8ff0b8a33fa6d5603940d5863a3440c5fe223585
-j
-:delivery-service/src/main/resources/application.properties,5\4\5468c9a8738baa86644e307edf5ea154b8e6952c
-i
-9history-service/src/main/resources/application.properties,9\8\987b3c25034afdc87366b41d0f830dca6cea49b2
 f
 6user-service/src/main/resources/application.properties,a\b\abd22621d482309884be935bff1fa3dc406a05f7
-g
-7order-service/src/main/resources/application.properties,e\7\e798f939adaa649751f14ddf8e58ee00bc7ac40d
-
-Oorder-service/src/main/java/com/epam/orderservice/publisher/EventPublisher.java,4\1\41a5379da6f02111a93c2870d52da0949748c9a3
 „
 Tuser-service/src/main/java/com/epam/userservice/subscriber/OrderEventSubscriber.java,d\7\d72e24de6af13d6c01cc13e4d8ee409e392d4431
 {
@@ -373,3 +361,9 @@ Rhistory-service/src/main/java/com/epam/historyservice/event/CompensationEvent.j
 Khistory-service/src/main/java/com/epam/historyservice/dto/HistoryEvent.java,5\7\577a674394420c5efedcc754cb55e735174cb23c
 w
 Gorder-service/src/main/java/com/epam/orderservice/dto/HistoryEvent.java,7\7\77cfda4462b84fa296cd290827a633667f27b69f
+}
+Mdelivery-service/src/main/java/com/epam/deliveryservice/dto/HistoryEvent.java,b\1\b111554df3381c0ff001871ab8b9b27703f67998
+{
+Kkitchen-service/src/main/java/com/epam/kitchenservice/dto/HistoryEvent.java,e\3\e3594040086f970349380b8b17a35f4244106fae
+„
+Torder-service/src/main/java/com/epam/orderservice/publisher/OrderEventPublisher.java,4\d\4d24c4eda504bfeca6e8b5f9777df2017c8bb430

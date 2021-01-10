@@ -1,8 +1,10 @@
 package com.epam.orderservice.subscriber;
 
+import com.epam.orderservice.dto.HistoryEvent;
 import com.epam.orderservice.dto.OrderDto;
 import com.epam.orderservice.dto.PaymentDto;
 import com.epam.orderservice.entity.Order;
+import com.epam.orderservice.event.EventType;
 import com.epam.orderservice.mapper.OrderMapper;
 import com.epam.orderservice.service.OrderService;
 import com.epam.orderservice.service.PaymentService;
@@ -47,7 +49,11 @@ public class OrderSubscriber implements MessageListener {
         orderService.save(order);
         PaymentDto paymentDto = paymentService.composePayment(order,false);
         orderService.publishPayment(paymentDto);
-//        orderService.publishHistoryEvent(order);
+        HistoryEvent historyEvent = HistoryEvent.builder()
+                .eventType(EventType.ORDER)
+                .body(order)
+                .build();
+        orderService.publishHistoryEvent(historyEvent);
     }
 }
 

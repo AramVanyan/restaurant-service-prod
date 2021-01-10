@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Date;
 
 @Entity
 @Table(name = "ticket")
@@ -22,6 +21,9 @@ public class Ticket {
 
     @Column(name = "created", nullable = false)
     private Timestamp creationTime;
+
+    @Column(name = "ticket_number")
+    private String ticketNumber;
 
     @Column(name = "order_id")
     private Long orderId;

@@ -1,5 +1,6 @@
 package com.epam.paymentservice.configuration;
 
+import com.epam.paymentservice.dto.HistoryEvent;
 import com.epam.paymentservice.event.Event;
 import com.epam.paymentservice.publisher.EventPublisher;
 import com.epam.paymentservice.publisher.PaymentHistoryPublisher;
@@ -43,10 +44,17 @@ public class RedisConfiguration {
     }
 
     @Bean
+    public RedisTemplate<String, HistoryEvent> paymentHistoryRedisTemplate() {
+        final RedisTemplate<String, HistoryEvent> template = new RedisTemplate<>();
+        template.setConnectionFactory(jedisConnectionFactory());
+        template.setValueSerializer(new Jackson2JsonRedisSerializer<>(HistoryEvent.class));
+        return template;
+    }
+
+    @Bean
     MessageListenerAdapter messageListener() {
         return new MessageListenerAdapter(paymentSubscriber);
     }
-
     @Bean
     ChannelTopic topic() {
         return new ChannelTopic("paymentChannel");
@@ -60,8 +68,8 @@ public class RedisConfiguration {
     }
 
     @Bean
-    PaymentHistoryPublisher redisHistoryPublisher(@Autowired RedisTemplate<?, ?> redisTemplate) {
-        return new PaymentHistoryPublisher(redisTemplate, publishHistoryTopic());
+    PaymentHistoryPublisher redisHistoryPublisher() {
+        return new PaymentHistoryPublisher(paymentHistoryRedisTemplate(), publishHistoryTopic());
     }
     @Bean
     ChannelTopic publishHistoryTopic() {

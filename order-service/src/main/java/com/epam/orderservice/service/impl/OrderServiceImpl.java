@@ -20,12 +20,12 @@ public class OrderServiceImpl implements OrderService {
     private final DeliveryPublisher deliveryPublisher;
     private final OrderRepository orderRepository;
     private final OrderHistoryPublisher historyPublisher;
-    private final EventPublisher eventPublisher;
+    private final OrderEventPublisher eventPublisher;
 
 
     @Override
-    public Order save(Order order) {
-        return orderRepository.save(order);
+    public void save(Order order) {
+        orderRepository.save(order);
     }
 
     @Override
@@ -34,10 +34,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order compensateOrder(Long orderId) {
+    public void compensateOrder(Long orderId) {
         Order order = orderRepository.getOne(orderId);
         orderRepository.deleteById(orderId);
-        return order;
     }
 
     @Override
@@ -47,15 +46,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public PaymentDto publishPayment(PaymentDto paymentDto) {
+    public void publishPayment(PaymentDto paymentDto) {
         paymentPublisher.publish(paymentDto);
-        return paymentDto;
     }
 
     @Override
-    public TicketDto publishTicket(TicketDto ticketDto) {
+    public void publishTicket(TicketDto ticketDto) {
         kitchenPublisher.publish(ticketDto);
-        return ticketDto;
     }
 
     @Override
@@ -64,7 +61,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void publishEvent(Event event) {
+    public void publishOrderEvent(Event event) {
         eventPublisher.publish(event);
     }
 

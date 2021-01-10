@@ -50,6 +50,7 @@ public class KitchenSubscriber implements MessageListener {
         else {
             Ticket ticket = ticketMapper.toEntity(ticketDto);
             ticket.setCreationTime(Timestamp.from(Instant.now()));
+            ticket.setTicketNumber("A35");
             kitchenService.save(ticket);
 
             String sDate1 = "31/12/2010";
@@ -59,7 +60,6 @@ public class KitchenSubscriber implements MessageListener {
                     .orderId(ticket.getOrderId())
                     .eventType(EventType.KITCHEN)
                     .build();
-
             if (ticket.getCreationTime().after(date)) {
                 event.setEventResult(EventResult.SUCCESS);
                 kitchenService.save(ticket);
