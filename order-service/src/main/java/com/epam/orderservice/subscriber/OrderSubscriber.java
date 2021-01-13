@@ -46,11 +46,11 @@ public class OrderSubscriber implements MessageListener {
         OrderDto orderDto = objectMapper.readValue(message.getBody(), OrderDto.class);
         Order order = orderMapper.toEntity(orderDto);
         order.setCreatedDate(Timestamp.from(Instant.now()));
-        orderService.save(order);
+        var savedOrder = orderService.save(order);
         PaymentDto paymentDto = paymentService.composePayment(order,false);
         HistoryEvent historyEvent = HistoryEvent.builder()
                 .eventType(EventType.ORDER)
-                .body(order)
+                .body(savedOrder)
                 .build();
         orderService.publishHistoryEvent(historyEvent);
         orderService.publishPayment(paymentDto);

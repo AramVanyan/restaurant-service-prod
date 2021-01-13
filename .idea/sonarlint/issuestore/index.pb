@@ -149,8 +149,6 @@ z
 Jpayment-service/src/main/java/com/epam/paymentservice/event/EventType.java,3\d\3d16c4440f083b2c45cb20e5729a4812f7b38b4b
 t
 Duser-service/src/main/java/com/epam/userservice/event/EventType.java,9\7\9772a9d846c1e7a7e38e3b88b24a086c003a6256
-á
-Whistory-service/src/main/java/com/epam/historyservice/controller/HistoryController.java,2\f\2ffbf44d81a13dd6e62536356499d0e7a9360fed
 Å
 Qhistory-service/src/main/java/com/epam/historyservice/service/HistoryService.java,3\d\3db69b4d5b470138cf29c60d69e772c3f240c032
 Ñ
@@ -371,3 +369,7 @@ j
 :delivery-service/src/main/resources/application.properties,5\4\5468c9a8738baa86644e307edf5ea154b8e6952c
 i
 9kitchen-service/src/main/resources/application.properties,8\f\8ff0b8a33fa6d5603940d5863a3440c5fe223585
+;
+cleanup.sql,5\8\5813d6ab2b953cfe1e9d0bcf7b61976f8acce9b4
+i
+9history-service/src/main/resources/application.properties,9\8\987b3c25034afdc87366b41d0f830dca6cea49b2

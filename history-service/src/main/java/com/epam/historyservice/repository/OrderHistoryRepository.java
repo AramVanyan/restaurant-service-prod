@@ -19,19 +19,19 @@ public interface OrderHistoryRepository extends JpaRepository<OrderDetails,Long>
 
     @Modifying
     @Query("update OrderDetails od set od.orderSum= :orderSum where od.orderId = :orderId")
-    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRES_NEW)
+    @Transactional
     void updatePayment(@Param(value = "orderSum") Long orderSum, @Param(value = "orderId") Long orderId);
 
     @Modifying
     @Query("update OrderDetails od set od.ticketNumber = :ticketNumber where od.orderId = :orderId")
-    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRES_NEW)
+    @Transactional
     void updateTicket(@Param(value = "ticketNumber") String ticketNumber, @Param(value = "orderId") Long orderId);
 
     @Modifying
     @Query("update OrderDetails od set od.scheduledDeliveryTime = :scheduledDeliveryTime," +
             "od.completionTime = :completionTime" +
             " where od.orderId = :orderId")
-    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRES_NEW)
+    @Transactional
     void updateDelivery(@Param(value = "scheduledDeliveryTime") Timestamp scheduledDeliveryTime,
                         @Param(value = "completionTime") Timestamp completionTime,
                         @Param(value = "orderId") Long orderId);
@@ -40,7 +40,7 @@ public interface OrderHistoryRepository extends JpaRepository<OrderDetails,Long>
     @Query("update OrderDetails od set od.orderDescription = :orderDescription," +
             "od.userId = :userId" +
             " where od.orderId = :orderId")
-    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRES_NEW)
+    @Transactional
     void updateOrder(@Param(value = "orderDescription") String orderDescription,
                      @Param(value = "userId") Long userId,
                      @Param(value = "orderId") Long orderId);

@@ -8,7 +8,7 @@ import com.epam.orderservice.entity.Order;
 import com.epam.orderservice.event.Event;
 
 public interface OrderService {
-    void save(Order order);
+    Order save(Order order);
     Order findById(Long id);
     void compensateOrder(Long orderId);
     DeliveryDto publishDelivery(DeliveryDto deliveryDto);
