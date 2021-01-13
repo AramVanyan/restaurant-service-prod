@@ -48,12 +48,12 @@ public class OrderSubscriber implements MessageListener {
         order.setCreatedDate(Timestamp.from(Instant.now()));
         orderService.save(order);
         PaymentDto paymentDto = paymentService.composePayment(order,false);
-        orderService.publishPayment(paymentDto);
         HistoryEvent historyEvent = HistoryEvent.builder()
                 .eventType(EventType.ORDER)
                 .body(order)
                 .build();
         orderService.publishHistoryEvent(historyEvent);
+        orderService.publishPayment(paymentDto);
     }
 }
 

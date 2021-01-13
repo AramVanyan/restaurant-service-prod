@@ -25,8 +25,8 @@ public class OrderDetails {
     @Column(name="order_description")
     private String orderDescription;
 
-    @Column(name="sum")
-    private Long sum;
+    @Column(name = "order_sum")
+    private Long orderSum;
 
     @Column(name = "ticket_number")
     private String ticketNumber;

@@ -367,3 +367,7 @@ Mdelivery-service/src/main/java/com/epam/deliveryservice/dto/HistoryEvent.java,
 Kkitchen-service/src/main/java/com/epam/kitchenservice/dto/HistoryEvent.java,e\3\e3594040086f970349380b8b17a35f4244106fae
 „
 Torder-service/src/main/java/com/epam/orderservice/publisher/OrderEventPublisher.java,4\d\4d24c4eda504bfeca6e8b5f9777df2017c8bb430
+j
+:delivery-service/src/main/resources/application.properties,5\4\5468c9a8738baa86644e307edf5ea154b8e6952c
+i
+9kitchen-service/src/main/resources/application.properties,8\f\8ff0b8a33fa6d5603940d5863a3440c5fe223585

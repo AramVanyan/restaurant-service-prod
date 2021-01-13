@@ -68,11 +68,6 @@ public class SagaEventSubscriber implements MessageListener {
                 }
                 event.setEventType(EventType.ORDER);
                 orderService.publishOrderEvent(event);
-                HistoryEvent historyEvent = HistoryEvent.builder()
-                        .eventType(EventType.ORDER)
-                        .body(order)
-                        .build();
-                orderService.publishHistoryEvent(historyEvent);
                 break;
             default:
                 log.info("default");

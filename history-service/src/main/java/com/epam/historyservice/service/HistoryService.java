@@ -6,7 +6,6 @@ import java.util.LinkedHashMap;
 
 public interface HistoryService {
 
-    OrderDetails getOrderDetails(Long id);
     void addPaymentInfo(Object paymentInfo);
     void addTicketInfo(Object ticketInfo);
 

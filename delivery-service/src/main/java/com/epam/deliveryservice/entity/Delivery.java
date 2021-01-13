@@ -1,5 +1,6 @@
 package com.epam.deliveryservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,8 +24,10 @@ public class Delivery {
     private Long orderId;
 
     @Column(name = "scheduled_delivery_time", nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp scheduledDeliveryTime;
 
     @Column(name = "completed", nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Timestamp completionTime;
 }

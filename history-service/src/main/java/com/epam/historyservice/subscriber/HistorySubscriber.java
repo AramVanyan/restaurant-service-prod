@@ -26,7 +26,7 @@ public class HistorySubscriber implements MessageListener {
 
     @SneakyThrows
     @Override
-    public void onMessage(Message message, byte[] bytes) {
+    public synchronized void onMessage(Message message, byte[] bytes) {
         HistoryEvent historyEvent = objectMapper.readValue(message.getBody(), HistoryEvent.class);
 
         switch (historyEvent.getEventType()) {
