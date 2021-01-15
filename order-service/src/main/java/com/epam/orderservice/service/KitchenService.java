@@ -4,6 +4,6 @@ import com.epam.orderservice.dto.TicketDto;
 import com.epam.orderservice.entity.Order;
 
 public interface KitchenService {
-    TicketDto composeTicket(Order order,Boolean toBeCompensated);
+    TicketDto composeTicket(Order order,Boolean abort);
     void publishTicket(TicketDto ticketDto);
 }

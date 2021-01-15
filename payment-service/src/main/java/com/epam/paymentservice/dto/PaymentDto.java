@@ -24,6 +24,6 @@ public class PaymentDto {
     private Long orderId;
 
     @NotNull
-    private Boolean toBeCompensated;
+    private Boolean abort;
 
 }

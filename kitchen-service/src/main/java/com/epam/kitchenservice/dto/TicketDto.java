@@ -16,7 +16,7 @@ public class TicketDto {
     private Long orderId;
 
     @NotNull
-    private Boolean toBeCompensated;
+    private Boolean abort;
 
     @NotNull
     private String ticketNumber;

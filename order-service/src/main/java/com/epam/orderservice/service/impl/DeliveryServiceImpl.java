@@ -12,8 +12,8 @@ public class DeliveryServiceImpl implements DeliveryService {
     private DeliveryPublisher deliveryPublisher;
 
     @Override
-    public DeliveryDto composeDelivery(Order order,Boolean toBeCompensated) {
-        return new DeliveryDto(order.getId(),order.getDeliveryTime(),toBeCompensated);
+    public DeliveryDto composeDelivery(Order order,Boolean abort) {
+        return new DeliveryDto(order.getId(),order.getDeliveryTime(),abort);
     }
 
     @Override

@@ -1,31 +1,11 @@
 
-X	java:S125?"<This block of commented-out lines of code should be removed.(»ÁŞ˜8û«©Ùï.
-X	java:S125T"<This block of commented-out lines of code should be removed.(®á¤„8Îì§Ùï.
-L
-java:S3740"/Provide the parametrized type for this generic.(÷ËĞß8ÆÒÍ½í.
-]	java:S125c"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ8òå¨Ùï.
-X	java:S125r"<This block of commented-out lines of code should be removed.(»ÁŞ˜8‹ÀÕØï.
-X	java:S125'"<This block of commented-out lines of code should be removed.(»ÁŞ˜8üßªÙï.
-X	java:S125-"<This block of commented-out lines of code should be removed.(¡Õ±š8‚•ªÙï.
-u
-java:S1128
-"SRemove this unused import 'org.springframework.transaction.annotation.Propagation'.(èª¡Çûÿÿÿÿ8Ûçó×ï.
-]	java:S1250"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ8üßªÙï.
-]	java:S125G"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ8û«©Ùï.
-X	java:S125x"<This block of commented-out lines of code should be removed.(¡Õ±š8‹ÀÕØï.
 Q
-java:S37406"/Provide the parametrized type for this generic.( õÌØùÿÿÿÿ8æŒ„¾í.
-X	java:S125$"<This block of commented-out lines of code should be removed.(®á¤„8’õ©Ùï.
+java:S3740C"/Provide the parametrized type for this generic.(°ôûÿÿÿÿ8”‡êï.
+L
+java:S3740"/Provide the parametrized type for this generic.(÷ËĞß8”‡êï.
 e
-java:S1192"HDefine a constant instead of duplicating this literal "orderId" 3 times.(®‰ö8Ü’ˆ¾í.
-X	java:S125W"<This block of commented-out lines of code should be removed.(»ÁŞ˜8òå¨Ùï.
+java:S1192"HDefine a constant instead of duplicating this literal "orderId" 3 times.(®‰ö8”‡êï.
 L
-java:S3740i"/Provide the parametrized type for this generic.(ƒæµÚ8ëÏ˜¾í.
-X	java:S125"<This block of commented-out lines of code should be removed.(ãƒ‰‘8ò“µØï.
-f
-java:S2259E"JA "NullPointerException" could be thrown; "orderDetails" is nullable here.(Şä¿S8û«©Ùï.
+java:S3740]"/Provide the parametrized type for this generic.(ƒæµÚ8”‡êï.
 Q
-java:S3740M"/Provide the parametrized type for this generic.(°ôûÿÿÿÿ8“Øˆ¾í.
-\
-java:S1854n"@Remove this useless assignment to local variable "orderDetails".(Ş¢óy8€Î«Ùï.
-X	java:S125o"<This block of commented-out lines of code should be removed.(®á¤„8€Î«Ùï.
+java:S3740,"/Provide the parametrized type for this generic.( õÌØùÿÿÿÿ8”‡êï.

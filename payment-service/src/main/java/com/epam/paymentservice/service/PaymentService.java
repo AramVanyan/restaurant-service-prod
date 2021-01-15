@@ -6,8 +6,8 @@ import com.epam.paymentservice.entity.Payment;
 import com.epam.paymentservice.event.Event;
 
 public interface PaymentService {
-    Payment save(Payment payment);
-    Payment compensatePayment(Long orderId);
-    Event publishEvent(Event event);
+    void save(Payment payment);
+    void deletePayment(Long orderId);
+    void publishEvent(Event event);
     void publishHistoryEvent(HistoryEvent historyEvent);
 }

@@ -18,7 +18,7 @@ public class KitchenServiceImpl implements KitchenService {
     private final KitchenHistoryPublisher historyPublisher;
 
     @Override
-    public void compensateTicket(Long orderId) {
+    public void deleteTicket(Long orderId) {
         kitchenRepository.deleteByOrderId(orderId);
     }
 

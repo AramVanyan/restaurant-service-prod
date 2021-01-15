@@ -21,5 +21,5 @@ public class DeliveryDto {
     private Timestamp scheduledDeliveryTime;
 
     @NotNull
-    private Boolean toBeCompensated;
+    private Boolean abort;
 }

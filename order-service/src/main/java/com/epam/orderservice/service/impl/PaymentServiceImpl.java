@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class PaymentServiceImpl implements PaymentService {
     @Override
-    public PaymentDto composePayment(Order order, Boolean toBeCompensated) {
+    public PaymentDto composePayment(Order order, Boolean abort) {
         return PaymentDto.builder()
                 .sum(order.getOrderSum())
                 .orderId(order.getId())
                 .creditCardDto(order.getCreditCard())
-                .toBeCompensated(toBeCompensated)
+                .abort(abort)
                 .build();
     }
 }

@@ -46,7 +46,7 @@ public class KitchenSubscriber implements MessageListener {
 
         TicketDto ticketDto = objectMapper.readValue(message.getBody(), TicketDto.class);
 
-        if (ticketDto.getToBeCompensated()) kitchenService.compensateTicket(ticketDto.getOrderId());
+        if (ticketDto.getAbort()) kitchenService.compensateTicket(ticketDto.getOrderId());
         else {
             Ticket ticket = ticketMapper.toEntity(ticketDto);
             ticket.setCreationTime(Timestamp.from(Instant.now()));

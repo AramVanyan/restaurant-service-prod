@@ -18,19 +18,18 @@ public class PaymentServiceImpl implements PaymentService {
     private final EventPublisher eventPublisher;
 
     @Override
-    public Payment save(Payment payment) {
-       return paymentRepository.save(payment);
+    public void save(Payment payment) {
+        paymentRepository.save(payment);
     }
 
     @Override
-    public Payment compensatePayment(Long orderId) {
-        return paymentRepository.deletePaymentByOrderId(orderId);
+    public void deletePayment(Long orderId) {
+        paymentRepository.deletePaymentByOrderId(orderId);
     }
 
     @Override
-    public Event publishEvent(Event event) {
+    public void publishEvent(Event event) {
         eventPublisher.publish(event);
-        return event;
     }
 
     @Override

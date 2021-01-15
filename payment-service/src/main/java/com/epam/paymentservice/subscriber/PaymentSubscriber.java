@@ -48,7 +48,7 @@ public class PaymentSubscriber implements MessageListener {
                                                        .getCreditCardNumber()));
         paymentDto.setCreditCardDto(creditCardDto);
 
-        if (paymentDto.getToBeCompensated()) paymentService.compensatePayment(paymentDto.getOrderId());
+        if (paymentDto.getAbort()) paymentService.deletePayment(paymentDto.getOrderId());
         else {
             Payment payment = paymentMapper.toEntity(paymentDto);
 

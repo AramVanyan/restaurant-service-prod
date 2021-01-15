@@ -4,5 +4,5 @@ import com.epam.orderservice.dto.PaymentDto;
 import com.epam.orderservice.entity.Order;
 
 public interface PaymentService {
-    PaymentDto composePayment(Order order,Boolean toBeCompensated);
+    PaymentDto composePayment(Order order,Boolean abort);
 }

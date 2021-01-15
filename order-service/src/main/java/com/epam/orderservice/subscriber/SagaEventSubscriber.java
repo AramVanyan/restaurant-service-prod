@@ -1,7 +1,6 @@
 package com.epam.orderservice.subscriber;
 
 import com.epam.orderservice.dto.DeliveryDto;
-import com.epam.orderservice.dto.HistoryEvent;
 import com.epam.orderservice.dto.TicketDto;
 import com.epam.orderservice.entity.Order;
 import com.epam.orderservice.event.EventResult;
@@ -51,7 +50,7 @@ public class SagaEventSubscriber implements MessageListener {
                 if (event.getEventResult().equals(EventResult.SUCCESS)) {
                     TicketDto ticketDto = kitchenService.composeTicket(order, false);
                     kitchenService.publishTicket(ticketDto);
-                } else orderService.compensateOrder(order.getId());
+                } else orderService.deleteOrder(order.getId());
                 break;
             case KITCHEN:
                 if (event.getEventResult().equals(EventResult.SUCCESS)) {

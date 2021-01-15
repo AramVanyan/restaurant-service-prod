@@ -1,6 +1,5 @@
 package com.epam.orderservice.service.impl;
 
-import com.epam.orderservice.dto.DeliveryDto;
 import com.epam.orderservice.dto.HistoryEvent;
 import com.epam.orderservice.dto.PaymentDto;
 import com.epam.orderservice.dto.TicketDto;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Service;
 public class OrderServiceImpl implements OrderService {
     private final PaymentPublisher paymentPublisher;
     private final KitchenPublisher kitchenPublisher;
-    private final DeliveryPublisher deliveryPublisher;
     private final OrderRepository orderRepository;
     private final OrderHistoryPublisher historyPublisher;
     private final OrderEventPublisher eventPublisher;
@@ -34,15 +32,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void compensateOrder(Long orderId) {
-        Order order = orderRepository.getOne(orderId);
+    public void deleteOrder(Long orderId) {
         orderRepository.deleteById(orderId);
-    }
-
-    @Override
-    public DeliveryDto publishDelivery(DeliveryDto deliveryDto) {
-        deliveryPublisher.publish(deliveryDto);
-        return deliveryDto;
     }
 
     @Override
@@ -53,11 +44,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void publishTicket(TicketDto ticketDto) {
         kitchenPublisher.publish(ticketDto);
-    }
-
-    @Override
-    public void publishCompensationEvent(Order order) {
-
     }
 
     @Override

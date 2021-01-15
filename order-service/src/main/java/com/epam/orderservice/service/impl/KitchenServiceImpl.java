@@ -17,8 +17,8 @@ public class KitchenServiceImpl implements KitchenService {
     }
 
     @Override
-    public TicketDto composeTicket(Order order, Boolean toBeCompensated) {
-        return new TicketDto(order.getId(),toBeCompensated);
+    public TicketDto composeTicket(Order order, Boolean abort) {
+        return new TicketDto(order.getId(),abort);
     }
 
     @Override

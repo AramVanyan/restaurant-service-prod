@@ -31,4 +31,9 @@ public class DeliveryServiceImpl implements DeliveryService {
     public void publishHistoryEvent(HistoryEvent historyEvent) {
         historyPublisher.publish(historyEvent);
     }
+
+    @Override
+    public void removeDelivery(Long orderId) {
+        deliveryRepository.deleteByOrderId(orderId);
+    }
 }
