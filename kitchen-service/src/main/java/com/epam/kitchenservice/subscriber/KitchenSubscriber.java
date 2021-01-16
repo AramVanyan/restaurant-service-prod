@@ -18,9 +18,7 @@ import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.util.Date;
 
 @Service
 @Slf4j
@@ -46,21 +44,18 @@ public class KitchenSubscriber implements MessageListener {
 
         TicketDto ticketDto = objectMapper.readValue(message.getBody(), TicketDto.class);
 
-        if (ticketDto.getAbort()) kitchenService.compensateTicket(ticketDto.getOrderId());
+        if (ticketDto.getAbort()) kitchenService.deleteTicket(ticketDto.getOrderId());
         else {
             Ticket ticket = ticketMapper.toEntity(ticketDto);
             ticket.setCreationTime(Timestamp.from(Instant.now()));
             ticket.setTicketNumber("A35");
             kitchenService.save(ticket);
 
-            String sDate1 = "31/12/2010";
-            Date date = new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);
-
             event = Event.builder()
                     .orderId(ticket.getOrderId())
                     .eventType(EventType.KITCHEN)
                     .build();
-            if (ticket.getCreationTime().after(date)) {
+            if (ticket.getOrderId() % 2 != 0) {
                 event.setEventResult(EventResult.SUCCESS);
                 kitchenService.save(ticket);
                 HistoryEvent historyEvent = HistoryEvent.builder()

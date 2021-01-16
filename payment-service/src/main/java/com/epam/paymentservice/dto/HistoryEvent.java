@@ -12,5 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class HistoryEvent {
     private EventType eventType;
+    private boolean abort;
     private Object body;
 }

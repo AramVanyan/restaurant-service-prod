@@ -6,15 +6,13 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 
 @Repository
 public interface OrderHistoryRepository extends JpaRepository<OrderDetails,Long> {
-    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRES_NEW)
+    @Transactional
     OrderDetails findByOrderId(long orderId);
 
     @Modifying
@@ -44,4 +42,7 @@ public interface OrderHistoryRepository extends JpaRepository<OrderDetails,Long>
     void updateOrder(@Param(value = "orderDescription") String orderDescription,
                      @Param(value = "userId") Long userId,
                      @Param(value = "orderId") Long orderId);
+
+    @Transactional
+    void deleteByOrderId(Long orderID);
 }

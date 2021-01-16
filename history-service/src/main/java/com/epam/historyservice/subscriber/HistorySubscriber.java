@@ -29,22 +29,25 @@ public class HistorySubscriber implements MessageListener {
     public synchronized void onMessage(Message message, byte[] bytes) {
         HistoryEvent historyEvent = objectMapper.readValue(message.getBody(), HistoryEvent.class);
 
-        switch (historyEvent.getEventType()) {
-            case PAYMENT -> {
-                historyService.addPaymentInfo(historyEvent.getBody());
-                log.info("add payment history");
-            }
-            case KITCHEN -> {
-                historyService.addTicketInfo(historyEvent.getBody());
-                log.info("add ticket history");
-            }
-            case DELIVERY -> {
-                historyService.addDeliveryInfo(historyEvent.getBody());
-                log.info("add delivery history");
-            }
-            case ORDER -> {
-                historyService.addOrderInfo(historyEvent.getBody());
-                log.info("add order history");
+        if (historyEvent.isAbort()) historyService.deleteOrderDetails(historyEvent.getBody());
+        else {
+            switch (historyEvent.getEventType()) {
+                case PAYMENT -> {
+                    historyService.addPaymentInfo(historyEvent.getBody());
+                    log.info("add payment history");
+                }
+                case KITCHEN -> {
+                    historyService.addTicketInfo(historyEvent.getBody());
+                    log.info("add ticket history");
+                }
+                case DELIVERY -> {
+                    historyService.addDeliveryInfo(historyEvent.getBody());
+                    log.info("add delivery history");
+                }
+                case ORDER -> {
+                    historyService.addOrderInfo(historyEvent.getBody());
+                    log.info("add order history");
+                }
             }
         }
     }

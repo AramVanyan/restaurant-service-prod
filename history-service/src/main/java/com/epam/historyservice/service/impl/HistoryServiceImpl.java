@@ -89,6 +89,13 @@ public class HistoryServiceImpl  implements HistoryService {
     }
 
     @Override
+    public void deleteOrderDetails(Object orderId) {
+        LinkedHashMap orderIdInfo= (LinkedHashMap)orderId;
+            Long orderIdLong = Long.parseLong(orderIdInfo.get("id").toString());
+            repository.deleteByOrderId(orderIdLong);
+    }
+
+    @Override
     public void addOrderInfo(Object orderInfo) {
         LinkedHashMap order= (LinkedHashMap)orderInfo;
         String orderId = order.get("id").toString();

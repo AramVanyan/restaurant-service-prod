@@ -1,6 +1,7 @@
 package com.epam.orderservice.subscriber;
 
 import com.epam.orderservice.dto.DeliveryDto;
+import com.epam.orderservice.dto.HistoryEvent;
 import com.epam.orderservice.dto.TicketDto;
 import com.epam.orderservice.entity.Order;
 import com.epam.orderservice.event.EventResult;
@@ -50,20 +51,38 @@ public class SagaEventSubscriber implements MessageListener {
                 if (event.getEventResult().equals(EventResult.SUCCESS)) {
                     TicketDto ticketDto = kitchenService.composeTicket(order, false);
                     kitchenService.publishTicket(ticketDto);
-                } else orderService.deleteOrder(order.getId());
+                } else {
+                    orderService.deleteOrder(order.getId());
+                    orderService.publishHistoryEvent(HistoryEvent.builder()
+                            .abort(true)
+                            .body(order)
+                            .build());
+                }
                 break;
             case KITCHEN:
                 if (event.getEventResult().equals(EventResult.SUCCESS)) {
                     DeliveryDto deliveryDto = deliveryService.composeDelivery(order, false);
                     deliveryService.publishDelivery(deliveryDto);
                 }
-                else orderService.publishPayment(paymentService.composePayment(order,true));
+                else {
+                    orderService.publishPayment(paymentService.composePayment(order,true));
+                    orderService.deleteOrder(order.getId());
+                    orderService.publishHistoryEvent(HistoryEvent.builder()
+                            .abort(true)
+                            .body(order)
+                            .build());
+                }
                 break;
             case DELIVERY:
                 if (!event.getEventResult().equals(EventResult.SUCCESS)) {
                     event.setEventResult(EventResult.FAILED);
                     orderService.publishTicket(kitchenService.composeTicket(order, true));
                     orderService.publishPayment(paymentService.composePayment(order, true));
+                    orderService.deleteOrder(order.getId());
+                    orderService.publishHistoryEvent(HistoryEvent.builder()
+                            .abort(true)
+                            .body(order)
+                            .build());
                 }
                 event.setEventType(EventType.ORDER);
                 orderService.publishOrderEvent(event);
