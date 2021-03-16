@@ -44,6 +44,8 @@ public class KitchenSubscriber implements MessageListener {
 
         TicketDto ticketDto = objectMapper.readValue(message.getBody(), TicketDto.class);
 
+        log.info("Ticket " + ticketDto + "received");
+
         if (ticketDto.getAbort()) kitchenService.deleteTicket(ticketDto.getOrderId());
         else {
             Ticket ticket = ticketMapper.toEntity(ticketDto);

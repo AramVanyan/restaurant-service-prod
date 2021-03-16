@@ -10,6 +10,8 @@ import com.epam.paymentservice.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 @RequiredArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
@@ -23,6 +25,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
+    @Transactional
     public void deletePayment(Long orderId) {
         paymentRepository.deletePaymentByOrderId(orderId);
     }

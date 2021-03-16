@@ -8,6 +8,4 @@ public interface DeliveryService {
     void save(Delivery delivery);
     void publishEvent(Event event);
     void publishHistoryEvent(HistoryEvent historyEvent);
-    void removeDelivery(Long orderId);
-
 }

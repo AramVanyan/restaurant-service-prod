@@ -44,6 +44,8 @@ public class PaymentSubscriber implements MessageListener {
     @Override
     public void onMessage(Message message, byte[] bytes) {
         PaymentDto paymentDto = objectMapper.readValue(message.getBody(), PaymentDto.class);
+        log.info("Payment " + paymentDto + "received");
+
         CreditCardDto creditCardDto = creditCardMapper.toDto(creditCardService.findByCardNumber(paymentDto.getCreditCardDto()
                                                        .getCreditCardNumber()));
         paymentDto.setCreditCardDto(creditCardDto);

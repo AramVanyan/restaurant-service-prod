@@ -25,8 +25,6 @@ import java.util.logging.Logger;
 @Slf4j
 @NoArgsConstructor
 public class OrderSubscriber implements MessageListener {
-
-    private final Logger logger = Logger.getLogger(this.getClass().getName());
     private final ObjectMapper objectMapper = new ObjectMapper();
     private PaymentService paymentService;
     private OrderService orderService;
@@ -42,11 +40,13 @@ public class OrderSubscriber implements MessageListener {
     @SneakyThrows
     @Override
     public void onMessage(Message message, byte[] bytes) {
-        logger.info("get create order request");
+        log.info("create order request accepted");
+
         OrderDto orderDto = objectMapper.readValue(message.getBody(), OrderDto.class);
         Order order = orderMapper.toEntity(orderDto);
         order.setCreatedDate(Timestamp.from(Instant.now()));
-        var savedOrder = orderService.save(order);
+        Order savedOrder = orderService.save(order);
+
         PaymentDto paymentDto = paymentService.composePayment(order,false);
         HistoryEvent historyEvent = HistoryEvent.builder()
                 .eventType(EventType.ORDER)

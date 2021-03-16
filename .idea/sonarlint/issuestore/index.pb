@@ -339,8 +339,6 @@ _delivery-service/src/main/java/com/epam/deliveryservice/publisher/DeliveryHisto
 Rpayment-service/src/main/java/com/epam/paymentservice/mapper/CreditCardMapper.java,2\d\2d486547e2855d72fab961606b18c072647a5698
 |
 Lpayment-service/src/main/java/com/epam/paymentservice/dto/CreditCardDto.java,7\b\7b7fafdb1c302c10baa17cecb1c3b1f16736f811
-f
-6user-service/src/main/resources/application.properties,a\b\abd22621d482309884be935bff1fa3dc406a05f7
 „
 Tuser-service/src/main/java/com/epam/userservice/subscriber/OrderEventSubscriber.java,d\7\d72e24de6af13d6c01cc13e4d8ee409e392d4431
 {

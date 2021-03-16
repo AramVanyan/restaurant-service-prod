@@ -18,7 +18,7 @@ public class PaymentPublisher {
     }
 
     public void publish(PaymentDto payment) {
-        log.info("Sending " + payment);
         redisTemplate.convertAndSend(topic.getTopic(), payment);
+        log.info("Published " + payment);
     }
 }

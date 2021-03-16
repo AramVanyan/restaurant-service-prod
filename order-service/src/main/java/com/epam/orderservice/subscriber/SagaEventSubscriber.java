@@ -57,6 +57,8 @@ public class SagaEventSubscriber implements MessageListener {
                             .abort(true)
                             .body(order)
                             .build());
+                    event.setEventType(EventType.ORDER);
+                    orderService.publishOrderEvent(event);
                 }
                 break;
             case KITCHEN:
@@ -71,6 +73,8 @@ public class SagaEventSubscriber implements MessageListener {
                             .abort(true)
                             .body(order)
                             .build());
+                    event.setEventType(EventType.ORDER);
+                    orderService.publishOrderEvent(event);
                 }
                 break;
             case DELIVERY:
@@ -83,6 +87,8 @@ public class SagaEventSubscriber implements MessageListener {
                             .abort(true)
                             .body(order)
                             .build());
+                    event.setEventType(EventType.ORDER);
+                    orderService.publishOrderEvent(event);
                 }
                 event.setEventType(EventType.ORDER);
                 orderService.publishOrderEvent(event);

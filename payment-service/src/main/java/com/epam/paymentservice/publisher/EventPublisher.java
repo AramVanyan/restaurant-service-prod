@@ -25,7 +25,7 @@ public class EventPublisher {
     }
 
     public void publish(Event event) {
-        log.info("Sending " + event);
         redisTemplate.convertAndSend(topic.getTopic(), event);
+        log.info("Published " + event);
     }
 }

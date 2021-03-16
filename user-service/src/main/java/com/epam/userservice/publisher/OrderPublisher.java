@@ -24,8 +24,8 @@ public class OrderPublisher {
     }
 
     public void publish(OrderDto order) {
-        log.info("Sending " + order);
         redisTemplate.convertAndSend(topic.getTopic(), order);
+        log.info("order " + order + "sent");
     }
 
 }

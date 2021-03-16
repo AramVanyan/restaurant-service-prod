@@ -103,8 +103,6 @@ public class HistoryServiceImpl  implements HistoryService {
         String userId = order.get("userId").toString();
 
         OrderDetails orderDetails= repository.findByOrderId(Long.parseLong(orderId));
-        if (orderDetails != null) log.info(orderDetails.toString());
-        else log.info("null");
 
         if(orderDetails == null){
             orderDetails = new OrderDetails();
@@ -112,7 +110,6 @@ public class HistoryServiceImpl  implements HistoryService {
             orderDetails.setOrderDescription(orderDescription);
             orderDetails.setUserId(Long.valueOf(userId));
             repository.save(orderDetails);
-            log.info("save order");
          } else {
             orderDetails.setOrderDescription(orderDescription);
             orderDetails.setUserId(Long.valueOf(userId));

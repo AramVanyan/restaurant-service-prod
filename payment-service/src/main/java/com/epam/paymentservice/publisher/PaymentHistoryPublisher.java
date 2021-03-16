@@ -19,8 +19,8 @@ public class PaymentHistoryPublisher {
         }
 
         public void publish(HistoryEvent historyEvent) {
-            log.info("Sending " + historyEvent);
             redisTemplate.convertAndSend(topic.getTopic(), historyEvent);
+            log.info("Published history event " + historyEvent);
         }
 
 }
